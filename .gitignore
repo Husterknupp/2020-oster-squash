@@ -1,0 +1,16 @@
+.idea/
+frontend/node_modules/
+node-debug.log
+npm-debug.log
+**/__pycache__
+
+
+# OS specifics
+*.swp
+*.swo
+.DS_Store
+
+
+osteranmeldung.bak/
+db.sqlite3
+test.py
