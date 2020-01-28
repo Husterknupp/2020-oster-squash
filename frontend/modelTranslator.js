@@ -13,6 +13,7 @@ fs.readFile(source, (err, data) => {
 
 function translateFromPythonDjango(lines) {
   /* NOT SUPPORTED
+   * Python code formatted different than PEP 8
    * functions (not useful for DTOs so far)
    * instance variable declarations after any function definition (we don't know when they end)
    * two classes with same name
@@ -20,29 +21,35 @@ function translateFromPythonDjango(lines) {
   const result = {};
 
   const currentContext = [];
-  for (let token of identifyTokens(lines)) {
-    switch (token.type) {
+  for (let element of pythonElements(lines)) {
+    switch (element.type) {
       case "class": {
-        if (token.name in result)
+        if (element.name in result)
           throw new Error(
-            `class name ${token.name} found second time at line ${token.line +
+            `class name ${
+              element.name
+            } found second time at line ${element.line +
               1}. We found it already earlier and don't support that`
           );
 
-        result[token.name] = [];
-        currentContext.push(token);
+        result[element.name] = [];
+        currentContext.push(element);
         break;
       }
       case "function": {
-        currentContext.push(token);
+        // a function basically ends parsing of the enclosing class
+        // however, since more than one may live in a file we need to continue parsing
+        // Also, we need to differentiate member variable from function variables. Therefore storing what
+        // context we're currently in is necessary
+        currentContext.push(element);
         break;
       }
       case "member": {
         const maybeClass = currentContext[currentContext.length - 1];
         if (maybeClass.type !== "class") break;
         result[maybeClass.name].push({
-          ...token,
-          typescriptType: djangoToTypescript(token.memberType)
+          ...element,
+          typescriptType: djangoToTypescript(element.memberType) // should that live in the 'fileWriter'?
         });
         break;
       }
@@ -54,42 +61,70 @@ function translateFromPythonDjango(lines) {
   return result;
 }
 
-function identifyTokens(lines) {
+function pythonElements(lines) {
   const result = [];
 
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
 
-    if (line.includes("class ")) {
-      const begin = line.indexOf("class ") + 6;
-      const end = line.includes("(") ? line.indexOf("(") : line.indexOf(":");
-      const className = line.slice(begin, end);
-      result.push({ type: "class", line: i + 1, name: className });
-    } else if (line.includes("def ")) {
-      result.push({ type: "function", line: i + 1 }); // we know that functions exist but don't support them atm, no need for more details
-    } else if (line.includes(" = ")) {
-      const member = line.slice(0, line.indexOf(" = ")).trim();
-      const type = line.slice(line.indexOf(" = ") + 3).trim();
-      result.push({
-        type: "member",
-        line: i + 1,
-        name: member,
-        memberType: type
-      });
-    } else if (
-      line.trim() === "" &&
-      (i === lines.length - 1 ||
-        (i <= lines.length - 1 && lines[i + 1].trim() === ""))
-    ) {
-      result.push({
-        type: "blockEnd",
-        line: i + 1
-      });
+    switch (tokenize(line)) {
+      case "class ": {
+        const begin = line.indexOf("class ") + 6;
+        const end = line.includes("(") ? line.indexOf("(") : line.indexOf(":");
+        const className = line.slice(begin, end);
+        result.push({ type: "class", line: i + 1, name: className });
+        break;
+      }
+      case "def ": {
+        // we know that functions exist but don't support them atm, no need for more details
+        result.push({ type: "function", line: i + 1 });
+        break;
+      }
+      case " = ": {
+        const member = line.slice(0, line.indexOf(" = ")).trim();
+        const type = line.slice(line.indexOf(" = ") + 3).trim();
+        result.push({
+          type: "member",
+          line: i + 1,
+          name: member,
+          memberType: type
+        });
+        break;
+      }
+      case "": {
+        if (
+          i === lines.length - 1 ||
+          (i <= lines.length - 1 && tokenize(lines[i + 1]) === "")
+        ) {
+          result.push({
+            type: "blockEnd",
+            line: i + 1
+          });
+        }
+        break;
+      }
     }
   }
 
   result.push({ type: "fileEnd", line: lines.length });
   return result;
+}
+
+function tokenize(line) {
+  if (line.includes("class ")) {
+    return "class ";
+  } else if (line.includes("def ")) {
+    return "def ";
+  } else if (line.includes(" = ")) {
+    return " = ";
+  } else if (line.trim() === "") {
+    return "";
+  } else if (line.includes("import ")) {
+    return "import ";
+  } else if (line.includes("return ")) {
+    return "return ";
+  }
+  throw new Error(`no known python token found in ${line}`);
 }
 
 function djangoToTypescript(djangoTypeDirty) {
