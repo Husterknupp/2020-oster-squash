@@ -11,7 +11,10 @@ const styles = stylesheet({
   },
   dayOfWeek: { display: "grid", gridTemplateColumns: "repeat(5, 1fr)" },
   dateGrid: { display: "grid", gridTemplateColumns: "repeat(5, 1fr)" },
-  date: { fontWeight: "bold" },
+  header: { margin: "1em" },
+  headerDate: { fontSize: "1.7em", fontWeight: "bold" },
+  headerYear: { fontSize: "1.7em" },
+  headerWeekday: { fontSize: "1.2em" },
   eventDisplay: {
     textAlign: "center",
     margin: ".5em",
@@ -21,7 +24,7 @@ const styles = stylesheet({
     boxShadow: "2px 2px 6px rgba(0, 0, 0, 0.05)",
     minHeight: "38px"
   },
-  eventAvailableSpots: { fontWeight: "bold" },
+  eventImportantText: { fontWeight: "bold" },
   clickable: {
     cursor: "pointer",
     $nest: {
@@ -29,6 +32,15 @@ const styles = stylesheet({
         color: "rgb(19 157 244)"
       }
     }
+  },
+  popupContainer: { position: "relative" },
+  popup: {
+    position: "absolute",
+    top: "-160px",
+    width: "22vw",
+    height: "140px",
+    backgroundColor: "wheat",
+    left: "-31px"
   }
 });
 
@@ -80,36 +92,39 @@ const Calendar: React.FC = () => {
     getRegistrations().catch(console.error);
   }, []);
 
+  const [openRegistration, setOpenRegistration] = useState<string | null>(null);
+
   return (
     <div className={styles.calendar}>
       <div className={styles.dayOfWeek}>
-        {eventDates.map(({ day }) => {
-          const asDate = DateTime.fromISO(day).setLocale("de");
-
-          return (
-            <div>
-              <div>
-                <span className={styles.date}>
-                  {asDate.toLocaleString({ month: "long", day: "numeric" })}
-                </span>
-                <span> {asDate.toLocaleString({ year: "numeric" })}</span>
-              </div>
-              <small>{asDate.toLocaleString({ weekday: "long" })}</small>
-            </div>
-          );
-        })}
+        {eventDates.map(({ day }) => (
+          <DateHeader key={day} day={day} />
+        ))}
       </div>
       <div className={styles.dateGrid}>
         {eventDates.map(eventDate => (
-          <div>
+          <div key={eventDate.day}>
             {hours.map(hour => {
+              const event = `${eventDate.day}-${hour}`;
+              const isOpen = openRegistration === event;
               return (
-                <Event
-                  happening={eventDate.hours.includes(hour)}
-                  date={eventDate.day}
-                  hour={hour}
-                  registrations={registrations}
-                />
+                <div className={styles.popupContainer}>
+                  {isOpen && <div className={styles.popup}>Popup</div>}
+                  <Event
+                    isHappening={eventDate.hours.includes(hour)}
+                    date={eventDate.day}
+                    hour={hour}
+                    registrations={registrations}
+                    onClick={() => {
+                      if (isOpen) {
+                        setOpenRegistration(null);
+                      } else {
+                        setOpenRegistration(event);
+                      }
+                    }}
+                    key={event}
+                  />
+                </div>
               );
             })}
           </div>
@@ -119,24 +134,50 @@ const Calendar: React.FC = () => {
   );
 };
 
+type DateHeaderProps = {
+  day: string;
+};
+function DateHeader({ day }: DateHeaderProps): ReactElement {
+  const asDate = DateTime.fromISO(day).setLocale("de");
+
+  return (
+    <div className={styles.header}>
+      <div>
+        <span className={styles.headerDate}>
+          {asDate.toLocaleString({ month: "long", day: "numeric" })}
+        </span>
+        <span className={styles.headerYear}>
+          {" "}
+          {asDate.toLocaleString({ year: "numeric" })}
+        </span>
+      </div>
+      <div className={styles.headerWeekday}>
+        {asDate.toLocaleString({ weekday: "long" })}
+      </div>
+    </div>
+  );
+}
+
 type EventProps = {
-  happening: boolean;
+  isHappening: boolean;
   date: string;
   hour: number;
   registrations: Registration[];
+  onClick: () => void;
 };
 function Event({
-  happening,
+  isHappening,
   date,
   hour,
-  registrations
+  registrations,
+  onClick
 }: EventProps): ReactElement {
   let available = 8;
   registrations
     .filter(r => r.timeFrameBegin === `${date}T${hour}:00:00Z`)
     .forEach(() => (available = Math.max(0, --available)));
 
-  if (!happening) {
+  if (!isHappening) {
     return (
       <div className={styles.eventDisplay}>
         um {hour} Uhr findet keine Veranstaltung statt
@@ -147,9 +188,14 @@ function Event({
   }
 
   return (
-    <div className={classes(styles.eventDisplay, styles.clickable)}>
-      <div className={styles.eventAvailableSpots}>{available} Plätze frei</div>
-      <small>{`${dayOfTheWeek(date)} ${hour}:00`}</small>
+    <div
+      className={classes(styles.eventDisplay, styles.clickable)}
+      onClick={onClick}
+    >
+      <small>{available} Plätze frei</small>
+      <div className={styles.eventImportantText}>{`${dayOfTheWeek(
+        date
+      )} ${hour}:00`}</div>
     </div>
   );
 }
