@@ -10,7 +10,7 @@ const styles = stylesheet({
     gridColumnEnd: 3
   },
   dayOfWeek: { display: "grid", gridTemplateColumns: "repeat(5, 1fr)" },
-  dateGrid: { display: "grid", gridTemplateColumns: "repeat(5, 1fr)" },
+  eventGrid: { display: "grid", gridTemplateColumns: "repeat(5, 1fr)" },
   header: { margin: "1em" },
   headerDate: { fontSize: "1.7em", fontWeight: "bold" },
   headerYear: { fontSize: "1.7em" },
@@ -19,7 +19,7 @@ const styles = stylesheet({
     textAlign: "center",
     margin: ".5em",
     border: `.5px solid rgb(230 229 230)`,
-    borderRadius: "10px",
+    borderRadius: "4px",
     padding: "1em",
     boxShadow: "2px 2px 6px rgba(0, 0, 0, 0.05)",
     minHeight: "38px"
@@ -33,15 +33,7 @@ const styles = stylesheet({
       }
     }
   },
-  popupContainer: { position: "relative" },
-  popup: {
-    position: "absolute",
-    top: "-160px",
-    width: "22vw",
-    height: "140px",
-    backgroundColor: "wheat",
-    left: "-31px"
-  }
+  popupAnchor: { position: "relative" }
 });
 
 /*
@@ -85,7 +77,7 @@ const Calendar: React.FC = () => {
   useEffect(() => {
     const getRegistrations = async () => {
       const registrations = await axios.get(
-        "http://localhost:8000/api/registrations"
+        "http://localhost:8000/api/registrations/"
       );
       setRegistrations(registrations.data as Registration[]);
     };
@@ -94,42 +86,52 @@ const Calendar: React.FC = () => {
 
   const [openRegistration, setOpenRegistration] = useState<string | null>(null);
 
+  const dateHeaders = eventDates.map(({ day }) => (
+    <DateHeader key={day} day={day} />
+  ));
+
+  const eventsPerDay = eventDates.map(eventDate => (
+    <div key={eventDate.day}>
+      {hours.map(hour => {
+        const eventTimestamp = `${eventDate.day}T${hour}:00:00Z`;
+        let available = 8;
+        registrations
+          .filter(r => r.timeFrameBegin === eventTimestamp)
+          .forEach(() => (available = Math.max(0, --available)));
+        const isOpen = openRegistration === eventTimestamp;
+        return (
+          <div className={styles.popupAnchor} key={eventTimestamp}>
+            {isOpen && (
+              <RegistrationPopup
+                date={eventDate.day}
+                hour={hour}
+                eventTimestamp={eventTimestamp}
+                availableSlots={available}
+              />
+            )}
+            <Event
+              isHappening={eventDate.hours.includes(hour)}
+              date={eventDate.day}
+              hour={hour}
+              availableSlots={available}
+              onClick={() => {
+                if (isOpen) {
+                  setOpenRegistration(null);
+                } else {
+                  setOpenRegistration(eventTimestamp);
+                }
+              }}
+            />
+          </div>
+        );
+      })}
+    </div>
+  ));
+
   return (
     <div className={styles.calendar}>
-      <div className={styles.dayOfWeek}>
-        {eventDates.map(({ day }) => (
-          <DateHeader key={day} day={day} />
-        ))}
-      </div>
-      <div className={styles.dateGrid}>
-        {eventDates.map(eventDate => (
-          <div key={eventDate.day}>
-            {hours.map(hour => {
-              const event = `${eventDate.day}-${hour}`;
-              const isOpen = openRegistration === event;
-              return (
-                <div className={styles.popupContainer}>
-                  {isOpen && <div className={styles.popup}>Popup</div>}
-                  <Event
-                    isHappening={eventDate.hours.includes(hour)}
-                    date={eventDate.day}
-                    hour={hour}
-                    registrations={registrations}
-                    onClick={() => {
-                      if (isOpen) {
-                        setOpenRegistration(null);
-                      } else {
-                        setOpenRegistration(event);
-                      }
-                    }}
-                    key={event}
-                  />
-                </div>
-              );
-            })}
-          </div>
-        ))}
-      </div>
+      <div className={styles.dayOfWeek}>{dateHeaders}</div>
+      <div className={styles.eventGrid}>{eventsPerDay}</div>
     </div>
   );
 };
@@ -158,32 +160,176 @@ function DateHeader({ day }: DateHeaderProps): ReactElement {
   );
 }
 
+const popupStyles = stylesheet({
+  popup: {
+    position: "absolute",
+    top: "-300px",
+    width: "22vw",
+    height: "18em",
+    backgroundColor: "wheat",
+    left: "-31px",
+    zIndex: 1,
+    $nest: {
+      "& > *": {
+        margin: ".5em"
+      }
+    }
+  },
+  header: {
+    display: "flex",
+    alignContent: "space-between"
+  },
+  adultsCount: {
+    $nest: {
+      "& > input": {
+        marginRight: ".8em"
+      }
+    }
+  },
+  numberInput: {
+    height: "2em",
+    width: "3em",
+    padding: "4px"
+  },
+  childCount: {
+    display: "flex",
+    $nest: {
+      "& > input": {
+        margin: "auto .8em auto auto"
+      }
+    }
+  },
+  emailInput: {
+    paddingTop: "1em",
+    $nest: {
+      "& > input": {
+        height: "2em",
+        width: "calc(100% - 1em)",
+        padding: "4px"
+      }
+    }
+  },
+  submit: {
+    paddingTop: "1em",
+    $nest: {
+      "& > button": {
+        width: "100%",
+        display: "inline-block",
+        border: "none",
+        padding: "1rem 2rem",
+        margin: "0",
+        textDecoration: "none",
+        background: "rgb(19 157 244)",
+        color: "white",
+        fontFamily: "sans-serif",
+        fontSize: "1rem",
+        cursor: "pointer",
+        textAlign: "center",
+        transition: "background 250ms ease-in-out, transform 150ms ease",
+        "-webkit-appearance": "none",
+        "-moz-appearance": "none"
+      },
+      "& > button:hover,button:focus": {
+        background: "#0053ba"
+      },
+      "& > button:focus": {
+        outline: "1px solid #fff",
+        outlineOffset: "-4px"
+      },
+      "& > button:active": {
+        transform: "scale(0.99)"
+      }
+    }
+  }
+});
+
+type RegistrationPopupProps = {
+  date: string;
+  hour: number;
+  eventTimestamp: string;
+  availableSlots: number;
+};
+function RegistrationPopup({
+  availableSlots,
+  date,
+  eventTimestamp,
+  hour
+}: RegistrationPopupProps): ReactElement {
+  const [adultsCount, setAdultsCount] = useState<number | null>(null);
+  const [childCount, setChildCount] = useState<number | null>(null);
+  const [emailAddress, setEmailAddress] = useState<string | null>(null);
+
+  return (
+    <form
+      className={popupStyles.popup}
+      onSubmit={event => {
+        const payload: Registration = {
+          timeFrameBegin: eventTimestamp,
+          adultsCount,
+          childCount,
+          emailAddress
+        } as Registration;
+        axios
+          .post("http://localhost:8000/api/registrations/", payload)
+          .finally(console.log);
+        event.preventDefault();
+      }}
+    >
+      <div className={popupStyles.header}>
+        <div>Anmelden für Dienstag, 7.4.2020, 14-15 Uhr</div>
+        <button type={"button"}>X</button>
+      </div>
+      <div className={popupStyles.adultsCount}>
+        <input
+          onChange={event => setAdultsCount(parseInt(event.target.value))}
+          className={popupStyles.numberInput}
+        />
+        <small>Personen</small>
+      </div>
+      <div className={popupStyles.childCount}>
+        <input
+          onChange={event => setChildCount(parseInt(event.target.value))}
+          className={popupStyles.numberInput}
+        />
+        <small>
+          zusätzliche Personen jünger als 12 Jahre (wir passen auf, dass es
+          nicht "zu authentisch" wird)
+        </small>
+      </div>
+      <div className={popupStyles.emailInput}>
+        <input
+          onChange={event => setEmailAddress(event.target.value)}
+          placeholder={"Email Adresse"}
+        />
+      </div>
+      <div className={popupStyles.submit}>
+        <button type={"submit"}>ANMELDEN</button>
+      </div>
+    </form>
+  );
+}
+
 type EventProps = {
   isHappening: boolean;
   date: string;
   hour: number;
-  registrations: Registration[];
+  availableSlots: number;
   onClick: () => void;
 };
 function Event({
   isHappening,
   date,
   hour,
-  registrations,
+  availableSlots,
   onClick
 }: EventProps): ReactElement {
-  let available = 8;
-  registrations
-    .filter(r => r.timeFrameBegin === `${date}T${hour}:00:00Z`)
-    .forEach(() => (available = Math.max(0, --available)));
-
   if (!isHappening) {
     return (
       <div className={styles.eventDisplay}>
         um {hour} Uhr findet keine Veranstaltung statt
       </div>
     );
-  } else if (available === 0) {
+  } else if (availableSlots === 0) {
     return <div className={styles.eventDisplay}>alle Plätze belegt</div>;
   }
 
@@ -192,7 +338,7 @@ function Event({
       className={classes(styles.eventDisplay, styles.clickable)}
       onClick={onClick}
     >
-      <small>{available} Plätze frei</small>
+      <small>{availableSlots} Plätze frei</small>
       <div className={styles.eventImportantText}>{`${dayOfTheWeek(
         date
       )} ${hour}:00`}</div>

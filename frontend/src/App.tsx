@@ -5,7 +5,14 @@ import Calendar from "./Calendar";
 
 /* todo
  * GitHub 2020-oster-brokkoli
- * create registration when clicking on a date
+ * create registration when clicking on a date todo
+ ** Popup: consider availableSlots
+ ** Popup: real date
+ ** reload on submit
+ ** close popup
+ ** sum up attendants correctly
+ ** loading state in popup / success
+ ** validation / creation on backend side
  * allow more details in popup panel
  * loading placeholder (for available spots)
  * registration state: show only "WAITING_FOR_SANITY_CHECK"|"CHECKED" - not "DELETED"

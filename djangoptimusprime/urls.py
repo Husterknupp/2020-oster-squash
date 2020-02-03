@@ -20,7 +20,7 @@ from rest_framework import routers
 from OsterAnmeldung import views
 
 router = routers.DefaultRouter()
-router.register(r'registrations', views.RegistrationView, 'registration')
+router.register(prefix=r'registrations', viewset=views.RegistrationView, basename='registration')
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls))]
