@@ -3,29 +3,6 @@ import "./App.css";
 import { classes, stylesheet } from "typestyle";
 import Calendar from "./Calendar";
 
-/* todo
- * GitHub 2020-oster-brokkoli
- * create registration when clicking on a date todo
- ** Popup: consider availableSlots
- ** Popup: real date
- ** reload on submit
- ** close popup
- ** sum up attendants correctly
- ** loading state in popup / success
- ** validation / creation on backend side
- * allow more details in popup panel
- * loading placeholder (for available spots)
- * registration state: show only "WAITING_FOR_SANITY_CHECK"|"CHECKED" - not "DELETED"
- * overview for tony:
- ** with password protection (b/c of email addresses) - can we leverage django auth mechanism?
- ** how many 12 or younger?
- ** approve/sanity check
- ** delete
- * a11y?
- * proper landing page design ("Artwork")
- * proper Footer/disclaimer
- */
-
 const styles = stylesheet({
   fullHeight: { height: "100vh" },
   gridContainer: {

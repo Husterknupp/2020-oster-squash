@@ -3,6 +3,7 @@ import { classes, stylesheet } from "typestyle";
 import { Registration } from "./DTOs";
 import axios from "axios";
 import { DateTime } from "luxon";
+import { NestedCSSProperties } from "typestyle/lib/types";
 
 const styles = stylesheet({
   calendar: {
@@ -21,10 +22,11 @@ const styles = stylesheet({
     border: `.5px solid rgb(230 229 230)`,
     borderRadius: "4px",
     padding: "1em",
-    boxShadow: "2px 2px 6px rgba(0, 0, 0, 0.05)",
+    boxShadow: "1px 1px 1px rgba(0, 0, 0, 0.05)",
     minHeight: "38px"
   },
   eventImportantText: { fontWeight: "bold" },
+  italic: { fontStyle: "italic" },
   clickable: {
     cursor: "pointer",
     $nest: {
@@ -37,28 +39,25 @@ const styles = stylesheet({
 });
 
 /*
-<>
-  <Header />
-  <CalendarGrid> // wie auf eventim artist page (https://www.eventim.de/artist/morrissey/)
-    const eventDates = [{day: "2020-04-07", hours: [14, 15, 16, 17]}, ..]
-    {for day in eventDates
-      {for hour in day
-        <Event registrations day hour> // Context?
-          const available = find available registrations for day/hour/'8 per day'
-          <Timestamp day hour/>
-          {available > 0 ?
-            <RegistrationModal onRegistration={onRegistration}>Anmelden</Button>
-            : "alles belegt"
-          }
-        </Event>
-      }
-    }
-  </CalendarGrid>
-  <Footer />
-<>
-*
-* (2020-04-07T14:00:00.000+01:00)
-* backend: 2020-04-07T15:00:00Z
+/* todo
+ * create registration when clicking on a date todo
+ ** Popup: consider availableSlots
+ ** Popup: real date
+ ** sum up attendants correctly
+ ** loading state in popup / success feedback
+ ** validation / creation on backend side
+ * loading placeholder (for available spots)
+ * registration state: show only "WAITING_FOR_SANITY_CHECK"|"CHECKED" - not "DELETED"
+ * overview for tony:
+ ** with password protection (b/c of email addresses) - can we leverage django auth mechanism?
+ ** how many 12 or younger?
+ ** approve/sanity check
+ ** delete
+ * a11y?
+ * proper landing page design ("Artwork") - wie auf eventim artist page (https://www.eventim.de/artist/morrissey/)
+ * proper Footer/disclaimer
+ * (2020-04-07T14:00:00.000+01:00)
+ * backend: 2020-04-07T15:00:00Z
  */
 
 const eventDates: EventDate[] = [
@@ -74,15 +73,19 @@ const hours = Array.from(new Set(eventDates.flatMap(({ hours }) => hours)));
 
 const Calendar: React.FC = () => {
   const [registrations, setRegistrations] = useState<Registration[]>([]);
+  const [isOutdated, setIsOutdated] = useState(true);
   useEffect(() => {
+    if (!isOutdated) return;
+
     const getRegistrations = async () => {
       const registrations = await axios.get(
         "http://localhost:8000/api/registrations/"
       );
       setRegistrations(registrations.data as Registration[]);
+      setIsOutdated(false);
     };
     getRegistrations().catch(console.error);
-  }, []);
+  }, [isOutdated]);
 
   const [openRegistration, setOpenRegistration] = useState<string | null>(null);
 
@@ -107,6 +110,10 @@ const Calendar: React.FC = () => {
                 hour={hour}
                 eventTimestamp={eventTimestamp}
                 availableSlots={available}
+                onClose={registrationSuccessful => {
+                  setOpenRegistration(null);
+                  setIsOutdated(registrationSuccessful);
+                }}
               />
             )}
             <Event
@@ -160,6 +167,18 @@ function DateHeader({ day }: DateHeaderProps): ReactElement {
   );
 }
 
+const buttonStyles: NestedCSSProperties = {
+  width: "100%",
+  display: "inline-block",
+  border: "none",
+  textDecoration: "none",
+  fontSize: "1em",
+  cursor: "pointer",
+  textAlign: "center",
+  "-webkit-appearance": "none",
+  "-moz-appearance": "none"
+};
+
 const popupStyles = stylesheet({
   popup: {
     position: "absolute",
@@ -169,6 +188,7 @@ const popupStyles = stylesheet({
     backgroundColor: "wheat",
     left: "-31px",
     zIndex: 1,
+    boxShadow: "0px 0px 200px rgba(0, 0, 0, 0.23)",
     $nest: {
       "& > *": {
         margin: ".5em"
@@ -209,25 +229,28 @@ const popupStyles = stylesheet({
       }
     }
   },
+  close: {
+    $nest: {
+      "& > button": {
+        ...buttonStyles,
+        transition: "transform 150ms ease",
+        background: "transparent"
+      },
+      "& > button:active": {
+        transform: "scale(0.90)"
+      }
+    }
+  },
   submit: {
     paddingTop: "1em",
     $nest: {
       "& > button": {
-        width: "100%",
-        display: "inline-block",
-        border: "none",
-        padding: "1rem 2rem",
-        margin: "0",
-        textDecoration: "none",
+        ...buttonStyles,
+        transition: "background 250ms ease-in-out, transform 150ms ease",
         background: "rgb(19 157 244)",
         color: "white",
-        fontFamily: "sans-serif",
-        fontSize: "1rem",
-        cursor: "pointer",
-        textAlign: "center",
-        transition: "background 250ms ease-in-out, transform 150ms ease",
-        "-webkit-appearance": "none",
-        "-moz-appearance": "none"
+        padding: ".8em 2em",
+        margin: "0"
       },
       "& > button:hover,button:focus": {
         background: "#0053ba"
@@ -248,12 +271,14 @@ type RegistrationPopupProps = {
   hour: number;
   eventTimestamp: string;
   availableSlots: number;
+  onClose: (registrationSuccessful: boolean) => void;
 };
 function RegistrationPopup({
   availableSlots,
   date,
   eventTimestamp,
-  hour
+  hour,
+  onClose
 }: RegistrationPopupProps): ReactElement {
   const [adultsCount, setAdultsCount] = useState<number | null>(null);
   const [childCount, setChildCount] = useState<number | null>(null);
@@ -263,6 +288,7 @@ function RegistrationPopup({
     <form
       className={popupStyles.popup}
       onSubmit={event => {
+        event.preventDefault();
         const payload: Registration = {
           timeFrameBegin: eventTimestamp,
           adultsCount,
@@ -271,13 +297,16 @@ function RegistrationPopup({
         } as Registration;
         axios
           .post("http://localhost:8000/api/registrations/", payload)
-          .finally(console.log);
-        event.preventDefault();
+          .finally(() => onClose(true));
       }}
     >
       <div className={popupStyles.header}>
         <div>Anmelden für Dienstag, 7.4.2020, 14-15 Uhr</div>
-        <button type={"button"}>X</button>
+        <div className={popupStyles.close}>
+          <button type={"button"} onClick={() => onClose(false)}>
+            X
+          </button>
+        </div>
       </div>
       <div className={popupStyles.adultsCount}>
         <input
@@ -325,12 +354,16 @@ function Event({
 }: EventProps): ReactElement {
   if (!isHappening) {
     return (
-      <div className={styles.eventDisplay}>
+      <div className={classes(styles.eventDisplay, styles.italic)}>
         um {hour} Uhr findet keine Veranstaltung statt
       </div>
     );
   } else if (availableSlots === 0) {
-    return <div className={styles.eventDisplay}>alle Plätze belegt</div>;
+    return (
+      <div className={classes(styles.eventDisplay, styles.italic)}>
+        alle Plätze belegt
+      </div>
+    );
   }
 
   return (
