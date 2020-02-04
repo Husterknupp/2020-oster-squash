@@ -23,7 +23,8 @@ const styles = stylesheet({
     borderRadius: "4px",
     padding: "1em",
     boxShadow: "1px 1px 1px rgba(0, 0, 0, 0.05)",
-    minHeight: "38px"
+    minHeight: "38px",
+    background: "white"
   },
   eventImportantText: { fontWeight: "bold" },
   italic: { fontStyle: "italic" },
@@ -42,10 +43,7 @@ const styles = stylesheet({
 /* todo
  * Registration Popup todo
  ** validation / creation on backend side (don't allow more than available)
- ** real date
  ** loading state in popup / success feedback
- ** input:hover styles
- ** input auto focus
  * loading placeholder (for available spots)
  * registration state: show only "WAITING_FOR_SANITY_CHECK"|"CHECKED" - not "DELETED"
  * overview for tony:
@@ -53,7 +51,7 @@ const styles = stylesheet({
  ** how many 12 or younger?
  ** approve/sanity check
  ** delete
- * a11y?
+ * a11y? Tab indices?
  * proper landing page design ("Artwork") - wie auf eventim artist page (https://www.eventim.de/artist/morrissey/)
  * proper Footer/disclaimer
  * (2020-04-07T14:00:00.000+01:00)
@@ -171,6 +169,7 @@ function DateHeader({ day }: DateHeaderProps): ReactElement {
 }
 
 const buttonStyles: NestedCSSProperties = {
+  /* mostly copied from https://css-tricks.com/overriding-default-button-styles/ */
   width: "100%",
   display: "inline-block",
   border: "none",
@@ -182,28 +181,46 @@ const buttonStyles: NestedCSSProperties = {
   "-moz-appearance": "none"
 };
 
+const inputStyles: NestedCSSProperties = {
+  /* shamelessly copied from stackoverflow search bar input */
+  backgroundColor: "#fff",
+  boxShadow: "none",
+  color: "#3c4146",
+  "-webkit-appearance": "none",
+  padding: ".6em .7em",
+  height: "3em",
+  border: "1px solid #bbc0c4",
+  borderRadius: "3px",
+  fontSize: "13px",
+  boxSizing: "border-box",
+  transition: "box-shadow 150ms ease-in-out",
+  $nest: {
+    "&:focus": {
+      boxShadow: "0px 0px 1px inset #139df4"
+    }
+  }
+};
+
 const popupStyles = stylesheet({
   popup: {
     position: "absolute",
     top: "-300px",
     width: "22vw",
     height: "18em",
-    backgroundColor: "wheat",
+    backgroundColor: "#f9fafb",
     left: "-31px",
     zIndex: 1,
     boxShadow: "0px 0px 200px rgba(0, 0, 0, 0.23)",
+    borderRadius: "4px",
     $nest: {
       "& > *": {
         margin: ".5em"
-      },
-      "& > * > input": {
-        border: "none"
       }
     }
   },
   header: {
     display: "flex",
-    alignContent: "space-between"
+    justifyContent: "space-between"
   },
   adultsCount: {
     $nest: {
@@ -213,9 +230,8 @@ const popupStyles = stylesheet({
     }
   },
   numberInput: {
-    height: "2em",
-    width: "3em",
-    padding: "4px"
+    ...inputStyles,
+    width: "3em"
   },
   childCount: {
     display: "flex",
@@ -229,9 +245,8 @@ const popupStyles = stylesheet({
     paddingTop: "1em",
     $nest: {
       "& > input": {
-        height: "2em",
-        width: "calc(100% - 1em)",
-        padding: "4px"
+        ...inputStyles,
+        width: "100%"
       }
     }
   },
@@ -252,14 +267,14 @@ const popupStyles = stylesheet({
     $nest: {
       "& > button": {
         ...buttonStyles,
-        transition: "background 250ms ease-in-out, transform 150ms ease",
+        transition: "filter 250ms ease-in-out, transform 150ms ease",
         background: "rgb(19 157 244)",
         color: "white",
         padding: ".8em 2em",
         margin: "0"
       },
       "& > button:hover,button:focus": {
-        background: "#0053ba"
+        filter: "brightness(0.9)"
       },
       "& > button:focus": {
         outline: "1px solid #fff",
@@ -289,6 +304,7 @@ function RegistrationPopup({
   const [adultsCount, setAdultsCount] = useState<number | null>(null);
   const [childCount, setChildCount] = useState<number | null>(null);
   const [emailAddress, setEmailAddress] = useState<string | null>(null);
+  const asDate = DateTime.fromISO(date).setLocale("de");
 
   return (
     <form
@@ -307,7 +323,19 @@ function RegistrationPopup({
       }}
     >
       <div className={popupStyles.header}>
-        <div>Anmelden für Dienstag, 7.4.2020, 14-15 Uhr</div>
+        <div>
+          <div>
+            Anmelden für{" "}
+            {asDate.toLocaleString(
+              Object.assign(DateTime.DATE_HUGE, { month: "numeric" })
+            )}
+          </div>
+          <div>
+            {hour}
+            {" - "}
+            {hour + 1} Uhr
+          </div>
+        </div>
         <div className={popupStyles.close}>
           <button type={"button"} onClick={() => onClose(false)}>
             X
@@ -317,6 +345,7 @@ function RegistrationPopup({
       <div className={popupStyles.adultsCount}>
         <input
           onChange={event => setAdultsCount(parseInt(event.target.value))}
+          autoFocus={true}
           className={popupStyles.numberInput}
         />
         <small>Personen</small>

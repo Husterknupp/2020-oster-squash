@@ -5,6 +5,7 @@ import Calendar from "./Calendar";
 
 const styles = stylesheet({
   fullHeight: { height: "100vh" },
+  grayishBackground: { background: "#f9fafb" },
   gridContainer: {
     display: "grid",
     gridTemplateColumns: "90px auto 90px",
@@ -27,7 +28,13 @@ const styles = stylesheet({
 
 const App: React.FC = () => {
   return (
-    <div className={classes(styles.gridContainer, styles.fullHeight)}>
+    <div
+      className={classes(
+        styles.gridContainer,
+        styles.fullHeight,
+        styles.grayishBackground
+      )}
+    >
       <Artwork />
       <Calendar />
       <Footer />
