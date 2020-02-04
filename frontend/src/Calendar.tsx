@@ -40,12 +40,12 @@ const styles = stylesheet({
 
 /*
 /* todo
- * create registration when clicking on a date todo
- ** Popup: consider availableSlots
- ** Popup: real date
- ** sum up attendants correctly
+ * Registration Popup todo
+ ** validation / creation on backend side (don't allow more than available)
+ ** real date
  ** loading state in popup / success feedback
- ** validation / creation on backend side
+ ** input:hover styles
+ ** input auto focus
  * loading placeholder (for available spots)
  * registration state: show only "WAITING_FOR_SANITY_CHECK"|"CHECKED" - not "DELETED"
  * overview for tony:
@@ -100,7 +100,10 @@ const Calendar: React.FC = () => {
         let available = 8;
         registrations
           .filter(r => r.timeFrameBegin === eventTimestamp)
-          .forEach(() => (available = Math.max(0, --available)));
+          .map(({ childCount, adultsCount }) => childCount + adultsCount)
+          .forEach(seatsTaken => {
+            available = Math.max(0, available - seatsTaken);
+          });
         const isOpen = openRegistration === eventTimestamp;
         return (
           <div className={styles.popupAnchor} key={eventTimestamp}>
@@ -192,6 +195,9 @@ const popupStyles = stylesheet({
     $nest: {
       "& > *": {
         margin: ".5em"
+      },
+      "& > * > input": {
+        border: "none"
       }
     }
   },
