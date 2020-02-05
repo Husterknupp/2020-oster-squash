@@ -39,10 +39,13 @@ const styles = stylesheet({
   popupAnchor: { position: "relative" }
 });
 
-/*
 /* todo
  * Registration Popup todo
  ** validation / creation on backend side (don't allow more than available)
+ ** validation in the UI: inputs allow all numbers even if values make no sense
+ ** red border around both inputs if numbers are too high
+ ** button can be disabled
+ ** email: <input type="email">
  ** loading state in popup / success feedback
  * loading placeholder (for available spots)
  * registration state: show only "WAITING_FOR_SANITY_CHECK"|"CHECKED" - not "DELETED"
@@ -204,9 +207,8 @@ const inputStyles: NestedCSSProperties = {
 const popupStyles = stylesheet({
   popup: {
     position: "absolute",
-    top: "-300px",
+    top: "-333px",
     width: "22vw",
-    height: "18em",
     backgroundColor: "#f9fafb",
     left: "-31px",
     zIndex: 1,
@@ -222,22 +224,27 @@ const popupStyles = stylesheet({
     display: "flex",
     justifyContent: "space-between"
   },
-  adultsCount: {
-    $nest: {
-      "& > input": {
-        marginRight: ".8em"
-      }
-    }
+  availableSlots: {
+    padding: ".5em",
+    border: "1px solid transparent",
+    borderRadius: "4px"
   },
   numberInput: {
     ...inputStyles,
     width: "3em"
   },
-  childCount: {
+  redBorder: {
+    border: "1px solid red"
+  },
+  peopleCount: {
     display: "flex",
+    alignItems: "center", // vertical
     $nest: {
       "& > input": {
-        margin: "auto .8em auto auto"
+        marginRight: ".8em"
+      },
+      "& > small": {
+        width: "100%"
       }
     }
   },
@@ -306,6 +313,12 @@ function RegistrationPopup({
   const [emailAddress, setEmailAddress] = useState<string | null>(null);
   const asDate = DateTime.fromISO(date).setLocale("de");
 
+  const sum = (childCount || 0) + (adultsCount || 0);
+  const adultsCountInvalid =
+    !!adultsCount && (adultsCount > availableSlots || sum > availableSlots);
+  const childCountInvalid =
+    !!childCount && (childCount > availableSlots || sum > availableSlots);
+
   return (
     <form
       className={popupStyles.popup}
@@ -342,22 +355,44 @@ function RegistrationPopup({
           </button>
         </div>
       </div>
-      <div className={popupStyles.adultsCount}>
-        <input
-          onChange={event => setAdultsCount(parseInt(event.target.value))}
-          autoFocus={true}
-          className={popupStyles.numberInput}
-        />
-        <small>Personen</small>
+      <div
+        className={classes(
+          popupStyles.availableSlots,
+          adultsCountInvalid || childCountInvalid ? popupStyles.redBorder : ""
+        )}
+      >
+        {availableSlots} Plätze sind noch frei
       </div>
-      <div className={popupStyles.childCount}>
+      <div className={popupStyles.peopleCount}>
         <input
-          onChange={event => setChildCount(parseInt(event.target.value))}
-          className={popupStyles.numberInput}
+          onChange={event => {
+            const number = parseInt(event.target.value);
+            setAdultsCount(isNaN(number) ? 0 : number);
+          }}
+          value={adultsCount !== null ? adultsCount : ""}
+          autoFocus={true}
+          className={classes(
+            popupStyles.numberInput,
+            adultsCountInvalid ? popupStyles.redBorder : ""
+          )}
+        />
+        <small>Personen (12+ Jahre alt)</small>
+      </div>
+      <div className={popupStyles.peopleCount}>
+        <input
+          onChange={event => {
+            const number = parseInt(event.target.value);
+            setChildCount(isNaN(number) ? 0 : number);
+          }}
+          value={childCount !== null ? childCount : ""}
+          className={classes(
+            popupStyles.numberInput,
+            childCountInvalid ? popupStyles.redBorder : ""
+          )}
         />
         <small>
-          zusätzliche Personen jünger als 12 Jahre (wir passen auf, dass es
-          nicht "zu authentisch" wird)
+          Plätze zusätzlich für Kinder unter 12 (wir wollen das wissen, damit es
+          ggf. nicht "zu authentisch" wird)
         </small>
       </div>
       <div className={popupStyles.emailInput}>
