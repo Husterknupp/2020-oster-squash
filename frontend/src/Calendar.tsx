@@ -41,11 +41,6 @@ const styles = stylesheet({
 
 /* todo
  * Registration Popup todo
- ** validation / creation on backend side (don't allow more than available)
- ** validation in the UI: inputs allow all numbers even if values make no sense
- ** red border around both inputs if numbers are too high
- ** button can be disabled
- ** email: <input type="email">
  ** loading state in popup / success feedback
  * loading placeholder (for available spots)
  * registration state: show only "WAITING_FOR_SANITY_CHECK"|"CHECKED" - not "DELETED"
@@ -57,6 +52,8 @@ const styles = stylesheet({
  * a11y? Tab indices?
  * proper landing page design ("Artwork") - wie auf eventim artist page (https://www.eventim.de/artist/morrissey/)
  * proper Footer/disclaimer
+ * favicon
+ *
  * (2020-04-07T14:00:00.000+01:00)
  * backend: 2020-04-07T15:00:00Z
  */
@@ -199,6 +196,7 @@ const inputStyles: NestedCSSProperties = {
   transition: "box-shadow 150ms ease-in-out",
   $nest: {
     "&:focus": {
+      outline: "none", // normalize Chrome behaviour (https://stackoverflow.com/questions/3397113/how-to-remove-focus-border-outline-around-text-input-boxes-chrome)
       boxShadow: "0px 0px 1px inset #139df4"
     }
   }
@@ -207,7 +205,7 @@ const inputStyles: NestedCSSProperties = {
 const popupStyles = stylesheet({
   popup: {
     position: "absolute",
-    top: "-333px",
+    top: "-348px",
     width: "22vw",
     backgroundColor: "#f9fafb",
     left: "-31px",
@@ -254,6 +252,10 @@ const popupStyles = stylesheet({
       "& > input": {
         ...inputStyles,
         width: "100%"
+      },
+      "& > input:invalid:not(:placeholder-shown)": {
+        /* thanks Zell https://zellwk.com/blog/check-empty-input-css/ */
+        border: "1px solid red"
       }
     }
   },
@@ -310,7 +312,7 @@ function RegistrationPopup({
 }: RegistrationPopupProps): ReactElement {
   const [adultsCount, setAdultsCount] = useState<number | null>(null);
   const [childCount, setChildCount] = useState<number | null>(null);
-  const [emailAddress, setEmailAddress] = useState<string | null>(null);
+  const [emailAddress, setEmailAddress] = useState<string>("");
   const asDate = DateTime.fromISO(date).setLocale("de");
 
   const sum = (childCount || 0) + (adultsCount || 0);
@@ -326,8 +328,8 @@ function RegistrationPopup({
         event.preventDefault();
         const payload: Registration = {
           timeFrameBegin: eventTimestamp,
-          adultsCount,
-          childCount,
+          adultsCount: adultsCount || 0,
+          childCount: childCount || 0,
           emailAddress
         } as Registration;
         axios
@@ -397,12 +399,20 @@ function RegistrationPopup({
       </div>
       <div className={popupStyles.emailInput}>
         <input
+          type={"email"}
+          required
+          value={emailAddress}
           onChange={event => setEmailAddress(event.target.value)}
           placeholder={"Email Adresse"}
         />
       </div>
       <div className={popupStyles.submit}>
-        <button type={"submit"}>ANMELDEN</button>
+        <button
+          type={"submit"}
+          disabled={adultsCountInvalid || childCountInvalid}
+        >
+          ANMELDEN
+        </button>
       </div>
     </form>
   );
