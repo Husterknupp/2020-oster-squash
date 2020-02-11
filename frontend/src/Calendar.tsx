@@ -1,9 +1,12 @@
-import React, { ReactElement, useEffect, useState } from "react";
+import React, { FormEvent, ReactElement, useEffect, useState } from "react";
 import { classes, stylesheet } from "typestyle";
 import { Registration } from "./DTOs";
 import axios from "axios";
 import { DateTime } from "luxon";
 import { NestedCSSProperties } from "typestyle/lib/types";
+import { Spinner } from "./Spinner";
+
+const HOST = "http://localhost:8000";
 
 const styles = stylesheet({
   calendar: {
@@ -40,8 +43,6 @@ const styles = stylesheet({
 });
 
 /* todo
- * Registration Popup todo
- ** loading state in popup / success feedback
  * loading placeholder (for available spots)
  * registration state: show only "WAITING_FOR_SANITY_CHECK"|"CHECKED" - not "DELETED"
  * overview for tony:
@@ -53,6 +54,7 @@ const styles = stylesheet({
  * proper landing page design ("Artwork") - wie auf eventim artist page (https://www.eventim.de/artist/morrissey/)
  * proper Footer/disclaimer
  * favicon
+ * popup failure case: please write email to adlknwld
  *
  * (2020-04-07T14:00:00.000+01:00)
  * backend: 2020-04-07T15:00:00Z
@@ -76,9 +78,7 @@ const Calendar: React.FC = () => {
     if (!isOutdated) return;
 
     const getRegistrations = async () => {
-      const registrations = await axios.get(
-        "http://localhost:8000/api/registrations/"
-      );
+      const registrations = await axios.get(`${HOST}/api/registrations/`);
       setRegistrations(registrations.data as Registration[]);
       setIsOutdated(false);
     };
@@ -314,6 +314,9 @@ function RegistrationPopup({
   const [childCount, setChildCount] = useState<number | null>(null);
   const [emailAddress, setEmailAddress] = useState<string>("");
   const asDate = DateTime.fromISO(date).setLocale("de");
+  const [submitState, setSubmitState] = useState<
+    "READY_TO_SUBMIT" | "WAITING_FOR_RESPONSE" | "SUCCESS_RESPONSE"
+  >("READY_TO_SUBMIT");
 
   const sum = (childCount || 0) + (adultsCount || 0);
   const adultsCountInvalid =
@@ -321,22 +324,52 @@ function RegistrationPopup({
   const childCountInvalid =
     !!childCount && (childCount > availableSlots || sum > availableSlots);
 
+  const onSubmit = (event: FormEvent) => {
+    event.preventDefault();
+    const payload: Registration = {
+      timeFrameBegin: eventTimestamp,
+      adultsCount: adultsCount || 0,
+      childCount: childCount || 0,
+      emailAddress
+    } as Registration;
+    setSubmitState("WAITING_FOR_RESPONSE");
+    axios
+      .post(`${HOST}/api/registrations/`, payload)
+      .catch(console.error)
+      .finally(() => {
+        setTimeout(() => setSubmitState("SUCCESS_RESPONSE"), 1000);
+        setTimeout(() => onClose(true), 2200);
+      });
+  };
+
+  let submitButton: ReactElement;
+  switch (submitState) {
+    case "READY_TO_SUBMIT": {
+      submitButton = (
+        <button
+          type={"submit"}
+          disabled={adultsCountInvalid || childCountInvalid}
+        >
+          ANMELDEN
+        </button>
+      );
+      break;
+    }
+    case "WAITING_FOR_RESPONSE": {
+      submitButton = (
+        <button type={"button"}>
+          <Spinner />
+        </button>
+      );
+      break;
+    }
+    case "SUCCESS_RESPONSE": {
+      submitButton = <button type={"button"}> Erfolgreich Angemeldet </button>;
+    }
+  }
+
   return (
-    <form
-      className={popupStyles.popup}
-      onSubmit={event => {
-        event.preventDefault();
-        const payload: Registration = {
-          timeFrameBegin: eventTimestamp,
-          adultsCount: adultsCount || 0,
-          childCount: childCount || 0,
-          emailAddress
-        } as Registration;
-        axios
-          .post("http://localhost:8000/api/registrations/", payload)
-          .finally(() => onClose(true));
-      }}
-    >
+    <form className={popupStyles.popup} onSubmit={onSubmit}>
       <div className={popupStyles.header}>
         <div>
           <div>
@@ -406,14 +439,7 @@ function RegistrationPopup({
           placeholder={"Email Adresse"}
         />
       </div>
-      <div className={popupStyles.submit}>
-        <button
-          type={"submit"}
-          disabled={adultsCountInvalid || childCountInvalid}
-        >
-          ANMELDEN
-        </button>
-      </div>
+      <div className={popupStyles.submit}>{submitButton}</div>
     </form>
   );
 }
