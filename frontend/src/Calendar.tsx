@@ -46,7 +46,7 @@ const eventDates: EventDate[] = [
   { day: "2020-04-07", hours: [14, 15, 16, 17] },
   { day: "2020-04-08", hours: [14, 15, 16, 17] },
   { day: "2020-04-09", hours: [14, 15, 16, 17] },
-  { day: "2020-04-10", hours: [14, 15, 16, 17] },
+  { day: "2020-04-10", hours: [16, 17, 18, 19] },
   { day: "2020-04-11", hours: [14, 15, 16, 17] }
 ];
 type EventDate = { day: string; hours: number[] };
@@ -444,7 +444,7 @@ function Event({
   if (!isHappening) {
     return (
       <div className={classes(styles.eventDisplay, styles.italic)}>
-        um {hour} Uhr findet keine Veranstaltung statt
+        {hour} Uhr findet keine Veranstaltung statt
       </div>
     );
   } else if (availableSlots === 0) {
