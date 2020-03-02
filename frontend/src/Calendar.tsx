@@ -67,6 +67,19 @@ const Calendar: React.FC = () => {
     getRegistrations().catch(console.error);
   }, [isOutdated]);
 
+  useEffect(() => {
+    const escFunction = (event: KeyboardEvent) => {
+      if (event.code === 'Escape') {
+        setOpenRegistration(null);
+      }
+    };
+    document.addEventListener("keydown", escFunction, false);
+
+    return () => {
+      document.removeEventListener("keydown", escFunction, false);
+    };
+  }, []);
+
   const [openRegistration, setOpenRegistration] = useState<string | null>(null);
 
   const dateHeaders = eventDates.map(({ day }) => (
