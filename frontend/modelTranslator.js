@@ -123,6 +123,8 @@ function tokenize(line) {
     return "import ";
   } else if (line.includes("return ")) {
     return "return ";
+  } else if (line.includes("print(")) {
+    return "print(";
   }
   throw new Error(`no known python token found in ${line}`);
 }
