@@ -1,4 +1,6 @@
 import React from "react";
+import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
+
 import "./App.css";
 import { classes, stylesheet } from "typestyle";
 import Calendar from "./Calendar";
@@ -58,17 +60,19 @@ const styles = stylesheet({
 
 const App: React.FC = () => {
   return (
-    <div
-      className={classes(
-        styles.gridContainer,
-        styles.fullHeight,
-        styles.grayishBackground
-      )}
-    >
-      <Artwork />
-      <Calendar />
-      <Footer />
-    </div>
+    <Router>
+      <div
+        className={classes(
+          styles.gridContainer,
+          styles.fullHeight,
+          styles.grayishBackground
+        )}
+      >
+        <Artwork />
+        <Content />
+        <Footer />
+      </div>
+    </Router>
   );
 };
 
@@ -76,7 +80,11 @@ const Artwork: React.FC = () => {
   return (
     <div className={styles.artwork}>
       <div className={styles.description}>
-        <h1>Ostern</h1>
+        <h1>
+          <Link to={"/"} className={styles.subtleLink}>
+            Zurück in die Zukunft: Ostern ERlebt
+          </Link>
+        </h1>
         <div>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec tempor
           quis velit sit amet iaculis. Nulla volutpat.
@@ -87,8 +95,37 @@ const Artwork: React.FC = () => {
   );
 };
 
+const Content: React.FC = () => {
+  return (
+    <Switch>
+      <Route path="/datenschutz">
+        <Impressum />
+      </Route>
+      <Route path="/impressum">
+        <Impressum />
+      </Route>
+      <Route path="/">
+        <Calendar />
+      </Route>
+    </Switch>
+  );
+};
+
 const Footer: React.FC = () => {
-  return <div className={styles.footer}>Footer</div>;
+  return (
+    <div className={styles.footer}>
+      <div>
+        <Link to={"/impressum"} className={styles.subtleLink}>
+          Impressum
+        </Link>
+      </div>
+      <div>
+        <Link to={"/datenschutz"} className={styles.subtleLink}>
+          Datenschutz
+        </Link>
+      </div>
+    </div>
+  );
 };
 
 export default App;
