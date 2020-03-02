@@ -42,24 +42,6 @@ const styles = stylesheet({
   popupAnchor: { position: "relative" }
 });
 
-/* todo
- * loading placeholder (for available spots)
- * registration state: show only "WAITING_FOR_SANITY_CHECK"|"CHECKED" - not "DELETED"
- * overview for tony:
- ** with password protection (b/c of email addresses) - can we leverage django auth mechanism?
- ** how many 12 or younger?
- ** approve/sanity check
- ** delete
- * a11y? Tab indices?
- * proper landing page design ("Artwork") - wie auf eventim artist page (https://www.eventim.de/artist/morrissey/)
- * proper Footer/disclaimer
- * favicon
- * popup failure case: please write email to adlknwld
- *
- * (2020-04-07T14:00:00.000+01:00)
- * backend: 2020-04-07T15:00:00Z
- */
-
 const eventDates: EventDate[] = [
   { day: "2020-04-07", hours: [14, 15, 16, 17] },
   { day: "2020-04-08", hours: [14, 15, 16, 17] },
