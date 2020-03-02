@@ -3,6 +3,7 @@ frontend/node_modules/
 node-debug.log
 npm-debug.log
 **/__pycache__
+venv/
 
 
 # OS specifics
