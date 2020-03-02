@@ -2,10 +2,11 @@ import React from "react";
 import "./App.css";
 import { classes, stylesheet } from "typestyle";
 import Calendar from "./Calendar";
-import headerImage from "./assets/laura-siegal-1xmuSigXQ2Y-unsplash.jpg";
+import headerImage from "./assets/bruno-van-der-kraan-v2HgNzRDfII-unsplash-cropped.png";
+import { Impressum } from "./Impressum";
 
 const styles = stylesheet({
-  fullHeight: { height: "100vh" },
+  fullHeight: { minHeight: "100vh" },
   grayishBackground: { background: "#f9fafb" },
   gridContainer: {
     display: "grid",
@@ -19,7 +20,7 @@ const styles = stylesheet({
     gridRowEnd: 2,
     backgroundImage: `url(${headerImage})`,
     backgroundSize: "cover",
-    backgroundPosition: "center",
+    backgroundPosition: "bottom",
     borderBottom: "1px solid rgba(206, 175, 142, 0.41)"
   },
   description: {
@@ -35,7 +36,23 @@ const styles = stylesheet({
     gridColumnStart: 1,
     gridColumnEnd: 4,
     gridRowStart: 3,
-    backgroundColor: "lightyellow"
+    borderTop: "1px solid #e1e4e8",
+    display: "flex",
+    $nest: {
+      "& > div": {
+        fontSize: "small",
+        margin: "auto 1em"
+      }
+    }
+  },
+  subtleLink: {
+    color: "inherit",
+    textDecoration: "inherit",
+    $nest: {
+      "&:hover": {
+        textDecoration: "underline"
+      }
+    }
   }
 });
 
