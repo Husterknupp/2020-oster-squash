@@ -1,10 +1,11 @@
 import React, { FormEvent, ReactElement, useEffect, useState } from "react";
-import { classes, stylesheet } from "typestyle";
+import { classes, style, stylesheet } from "typestyle";
 import { Registration } from "./DTOs";
 import axios from "axios";
 import { DateTime } from "luxon";
 import { NestedCSSProperties } from "typestyle/lib/types";
 import { Spinner } from "./Spinner";
+import { H1 } from "./constants";
 
 const HOST = "http://localhost:8000";
 
@@ -16,8 +17,7 @@ const styles = stylesheet({
   dayOfWeek: { display: "grid", gridTemplateColumns: "repeat(5, 1fr)" },
   eventGrid: { display: "grid", gridTemplateColumns: "repeat(5, 1fr)" },
   header: { margin: "1em" },
-  headerDate: { fontSize: "1.7em", fontWeight: "bold" },
-  headerYear: { fontSize: "1.7em" },
+  headerDate: { ...H1, fontWeight: "bold" },
   headerWeekday: { fontSize: "1.2em" },
   eventDisplay: {
     textAlign: "center",
@@ -138,7 +138,7 @@ function DateHeader({ day }: DateHeaderProps): ReactElement {
         <span className={styles.headerDate}>
           {asDate.toLocaleString({ month: "long", day: "numeric" })}
         </span>
-        <span className={styles.headerYear}>
+        <span className={style(H1)}>
           {" "}
           {asDate.toLocaleString({ year: "numeric" })}
         </span>
@@ -189,6 +189,7 @@ const popupStyles = stylesheet({
     position: "absolute",
     top: "-348px",
     width: "22vw",
+    minWidth: "250px", // until we have proper mobile support
     backgroundColor: "#f9fafb",
     left: "-31px",
     zIndex: 1,
