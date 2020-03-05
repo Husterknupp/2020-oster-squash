@@ -40,5 +40,9 @@ COMMAND="python3 manage.py runserver 0.0.0.0:8000"
 nohup $COMMAND </dev/null >>event.log 2>>error.log &
 # >> "[2] 17622"
 
+echo $?
+
 # write pid from background process into file
 echo $! >running-instance
+
+exit
