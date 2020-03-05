@@ -24,7 +24,7 @@ SECRET_KEY = 'pwn3hel+42%-4p9(aw7x^7h-b*fe0&vn+h##e!-ltibcsc8eu^'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['hstrknpp.uber.space']
 
 # Application definition
 
