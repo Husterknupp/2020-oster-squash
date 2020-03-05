@@ -25,7 +25,9 @@ echo "[UPDATE] git pull"
 git pull --rebase
 echo "[UPDATE] "
 
-echo "[UPDATE] NOT KILLING ANY INSTANCE. WEIRD THINGS ARE HAPPENING. PLEASE DO IT YOURSELF"
+echo "[UPDATE] trying to kill old instances"
+# `:` is noop (if killing didn't work, we assume that there was no process running in the first place which is good)
+ps aux | grep manage.py | grep -v grep | awk '{print $2}' | xargs kill -9 || :
 echo "[UPDATE] "
 
 ##########################
@@ -42,9 +44,6 @@ COMMAND="python3 manage.py runserver 0.0.0.0:8000"
 nohup $COMMAND </dev/null >>event.log 2>&1 &
 # >> "[2] 17622"
 exit_code=$?
-pid_django=$!
 echo "[UPDATE] trying to start django exited with code $exit_code"
-echo "[UPDATE] PID: $pid_django"
-echo $pid_django >running-instance
 
 echo "[UPDATE] end"
