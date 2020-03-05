@@ -18,31 +18,35 @@
 # 5. smoke test (should do client)
 
 cd /home/hstrknpp/code/2020-oster-squash/ || exit
-echo "I'm in directory $(pwd)"
+echo "[UPDATE] I'm in directory $(pwd)"
+echo "[UPDATE]"
 
-echo "git pull"
+echo "[UPDATE] git pull"
 git pull --rebase
+echo "[UPDATE] "
 
-echo "trying to kill old instance ($(cat ./running-instance))"
+echo "[UPDATE] trying to kill old instance ($(cat ./running-instance))"
 # `:` is noop (if killing didn't work, we assume that there was no process running in the first place which is good)
 echo ./running-instance | awk '{print $2}' | xargs kill -9 || :
+echo "[UPDATE] "
 
 ##########################
 #     START DJANGO       #
 ##########################
 
+echo "[UPDATE] starting django"
 python3 manage.py migrate
 COMMAND="python3 manage.py runserver 0.0.0.0:8000"
 # `< /dev/null` - read input from /dev/null (whenever the COMMAND needs input it immediately skips the input)
 # `> start-script.log` - write output to start-script.log (standard output)
 # `2>> error.log` - append output 2 (error) to error.log (`2>&1` would mean, write 2 where also 1 goes)
 # `&` - & at the end returns immediately
-nohup $COMMAND </dev/null >>event.log 2>>error.log &
+nohup $COMMAND </dev/null >>event.log 2>&1 &
 # >> "[2] 17622"
+exit_code=$?
+pid_django=$!
+echo "[UPDATE] trying to start django exited with code $exit_code"
+echo "[UPDATE] PID: $pid_django"
+echo $pid_django >running-instance
 
-echo $?
-
-# write pid from background process into file
-echo $! >running-instance
-
-exit
+echo "[UPDATE] end"
