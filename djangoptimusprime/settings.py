@@ -52,7 +52,7 @@ MIDDLEWARE = [
 ]
 
 # whitelist because that's where frontend will be served
-CORS_ORIGIN_WHITELIST = ['http://localhost:3000']
+CORS_ORIGIN_WHITELIST = ['http://localhost:3000', 'https://husterknupp.github.io']
 
 ROOT_URLCONF = 'djangoptimusprime.urls'
 

@@ -7,7 +7,8 @@ import { NestedCSSProperties } from "typestyle/lib/types";
 import { Spinner } from "./Spinner";
 import { H1 } from "./constants";
 
-const HOST = "http://localhost:8000";
+// const HOST = "http://localhost:8000";
+const HOST = "https://hstrknpp.uber.space/";
 
 const styles = stylesheet({
   calendar: {
