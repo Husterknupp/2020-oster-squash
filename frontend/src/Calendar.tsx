@@ -8,7 +8,7 @@ import { Spinner } from "./Spinner";
 import { H1 } from "./constants";
 
 // const HOST = "http://localhost:8000";
-const HOST = "https://hstrknpp.uber.space/";
+const HOST = "https://hstrknpp.uber.space";
 
 const styles = stylesheet({
   calendar: {
@@ -31,7 +31,7 @@ const styles = stylesheet({
     background: "white"
   },
   eventImportantText: { fontWeight: "bold" },
-  italic: { fontStyle: "italic" },
+  italic: { fontStyle: "italic", color: "#777676" },
   clickable: {
     cursor: "pointer",
     $nest: {
@@ -70,7 +70,7 @@ const Calendar: React.FC = () => {
 
   useEffect(() => {
     const escFunction = (event: KeyboardEvent) => {
-      if (event.code === 'Escape') {
+      if (event.code === "Escape") {
         setOpenRegistration(null);
       }
     };
