@@ -25,9 +25,7 @@ echo "[UPDATE] git pull"
 git pull --rebase
 echo "[UPDATE] "
 
-echo "[UPDATE] trying to kill old instance ($(cat ./running-instance))"
-# `:` is noop (if killing didn't work, we assume that there was no process running in the first place which is good)
-cat ./running-instance | xargs kill -9 || :
+echo "[UPDATE] NOT KILLING ANY INSTANCE. WEIRD THINGS ARE HAPPENING. PLEASE DO IT YOURSELF"
 echo "[UPDATE] "
 
 ##########################
