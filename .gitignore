@@ -4,6 +4,7 @@ node-debug.log
 npm-debug.log
 **/__pycache__
 venv/
+frontend/build/
 
 
 # OS specifics
