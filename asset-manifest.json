@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/2020-oster-squash/static/css/main.d1b05096.chunk.css",
-    "main.js": "/2020-oster-squash/static/js/main.ded042c5.chunk.js",
-    "main.js.map": "/2020-oster-squash/static/js/main.ded042c5.chunk.js.map",
+    "main.js": "/2020-oster-squash/static/js/main.86690a52.chunk.js",
+    "main.js.map": "/2020-oster-squash/static/js/main.86690a52.chunk.js.map",
     "runtime-main.js": "/2020-oster-squash/static/js/runtime-main.74a09bdf.js",
     "runtime-main.js.map": "/2020-oster-squash/static/js/runtime-main.74a09bdf.js.map",
     "static/js/2.74d6e1ce.chunk.js": "/2020-oster-squash/static/js/2.74d6e1ce.chunk.js",
     "static/js/2.74d6e1ce.chunk.js.map": "/2020-oster-squash/static/js/2.74d6e1ce.chunk.js.map",
     "index.html": "/2020-oster-squash/index.html",
-    "precache-manifest.eb80877193716ee6d3baccce48274465.js": "/2020-oster-squash/precache-manifest.eb80877193716ee6d3baccce48274465.js",
+    "precache-manifest.1ddef635286ce529e8e4a672564f2663.js": "/2020-oster-squash/precache-manifest.1ddef635286ce529e8e4a672564f2663.js",
     "service-worker.js": "/2020-oster-squash/service-worker.js",
     "static/css/main.d1b05096.chunk.css.map": "/2020-oster-squash/static/css/main.d1b05096.chunk.css.map",
     "static/js/2.74d6e1ce.chunk.js.LICENSE": "/2020-oster-squash/static/js/2.74d6e1ce.chunk.js.LICENSE",
@@ -18,6 +18,6 @@
     "static/js/runtime-main.74a09bdf.js",
     "static/js/2.74d6e1ce.chunk.js",
     "static/css/main.d1b05096.chunk.css",
-    "static/js/main.ded042c5.chunk.js"
+    "static/js/main.86690a52.chunk.js"
   ]
 }
