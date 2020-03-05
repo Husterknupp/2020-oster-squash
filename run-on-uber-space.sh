@@ -27,7 +27,7 @@ echo "[UPDATE] "
 
 echo "[UPDATE] trying to kill old instance ($(cat ./running-instance))"
 # `:` is noop (if killing didn't work, we assume that there was no process running in the first place which is good)
-echo ./running-instance | awk '{print $2}' | xargs kill -9 || :
+cat ./running-instance | xargs kill -9 || :
 echo "[UPDATE] "
 
 ##########################
