@@ -16,3 +16,9 @@ frontend/build/
 osteranmeldung.bak/
 db.sqlite3
 test.py
+
+
+# Deployment
+running-instance
+event.log
+error.log

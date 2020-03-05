@@ -4,7 +4,7 @@ Backend and frontend for registration website for local event in easter season.
 
 ## Backend
 
-`$ python manage.py migrate OsterAnmeldung` to create/update database schema (sqlite)
+`$ python manage.py migrate` to create/update database schema (sqlite)
 
 `$ python manage.py runserver` to start the backend
 
