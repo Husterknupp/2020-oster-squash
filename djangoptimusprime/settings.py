@@ -28,7 +28,11 @@ SECRET_KEY = CONFIG['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = CONFIG['DEBUG']
 
+# CSRF attacks
 ALLOWED_HOSTS = CONFIG['ALLOWED_HOSTS']
+
+# https://docs.djangoproject.com/en/3.0/ref/middleware/#http-strict-transport-security
+SECURE_HSTS_SECONDS = CONFIG['SECURE_HSTS_SECONDS']
 
 # Application definition
 
