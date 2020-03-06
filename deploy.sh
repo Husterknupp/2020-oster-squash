@@ -48,8 +48,6 @@ COMMAND="python3 manage.py runserver 0.0.0.0:8000"
 # `&` - & at the end returns immediately
 nohup $COMMAND </dev/null >>~/logs/2020-oster-squash-event.log 2>&1 &
 # >> "[2] 17622"
-exit_code=$?
-echo "[DEPLOY] trying to start django exited with code $exit_code"
 echo "[DEPLOY] "
 
 tail -n10 /home/hstrknpp/logs/2020-oster-squash-event.log
