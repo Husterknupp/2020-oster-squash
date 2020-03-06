@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# RUN THIS ON-SITE
+
 # OPTIONS
 # daemon on uber-space polling GitHub for changes
 # script lying on the machine, manual actions that trigger that script from the outside
@@ -41,7 +43,7 @@ COMMAND="python3 manage.py runserver 0.0.0.0:8000"
 # `> start-script.log` - write output to start-script.log (standard output)
 # `2>> error.log` - append output 2 (error) to error.log (`2>&1` would mean, write 2 where also 1 goes)
 # `&` - & at the end returns immediately
-nohup $COMMAND </dev/null >>event.log 2>&1 &
+nohup $COMMAND </dev/null >>~/logs/2020-oster-squash-event.log 2>&1 &
 # >> "[2] 17622"
 exit_code=$?
 echo "[UPDATE] trying to start django exited with code $exit_code"
