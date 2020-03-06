@@ -12,19 +12,23 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 
+import yaml
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+CONFIG = yaml.load(open('config.yaml'), Loader=yaml.FullLoader)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'pwn3hel+42%-4p9(aw7x^7h-b*fe0&vn+h##e!-ltibcsc8eu^'
+SECRET_KEY = CONFIG['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = CONFIG['DEBUG']
 
-ALLOWED_HOSTS = ['hstrknpp.uber.space']
+ALLOWED_HOSTS = CONFIG['ALLOWED_HOSTS']
 
 # Application definition
 
@@ -52,7 +56,7 @@ MIDDLEWARE = [
 ]
 
 # whitelist because that's where frontend will be served
-CORS_ORIGIN_WHITELIST = ['http://localhost:3000', 'https://husterknupp.github.io']
+CORS_ORIGIN_WHITELIST = CONFIG['CORS_ORIGIN_WHITELIST']
 
 ROOT_URLCONF = 'djangoptimusprime.urls'
 

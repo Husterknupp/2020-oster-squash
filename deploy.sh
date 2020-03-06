@@ -20,23 +20,26 @@
 # 5. smoke test (should do client)
 
 cd /home/hstrknpp/code/2020-oster-squash/ || exit
-echo "[UPDATE] I'm in directory $(pwd)"
-echo "[UPDATE]"
+echo "[DEPLOY] I'm in directory $(pwd)"
+echo "[DEPLOY]"
 
-echo "[UPDATE] git pull"
+echo "[DEPLOY] git pull"
 git pull --rebase
-echo "[UPDATE] "
+echo "[DEPLOY] "
 
-echo "[UPDATE] trying to kill old instances"
+echo "[DEPLOY] trying to kill old instances"
 # `:` is noop (if killing didn't work, we assume that there was no process running in the first place which is good)
 ps aux | grep manage.py | grep -v grep | awk '{print $2}' | xargs kill -9 || :
-echo "[UPDATE] "
+echo "[DEPLOY] "
 
 ##########################
 #     START DJANGO       #
 ##########################
 
-echo "[UPDATE] starting django"
+echo "[DEPLOY] pip (requirements.txt)"
+pip3 install -r requirements.txt
+
+echo "[DEPLOY] starting django"
 python3 manage.py migrate
 COMMAND="python3 manage.py runserver 0.0.0.0:8000"
 # `< /dev/null` - read input from /dev/null (whenever the COMMAND needs input it immediately skips the input)
@@ -46,6 +49,10 @@ COMMAND="python3 manage.py runserver 0.0.0.0:8000"
 nohup $COMMAND </dev/null >>~/logs/2020-oster-squash-event.log 2>&1 &
 # >> "[2] 17622"
 exit_code=$?
-echo "[UPDATE] trying to start django exited with code $exit_code"
+echo "[DEPLOY] trying to start django exited with code $exit_code"
+echo "[DEPLOY] "
 
-echo "[UPDATE] end"
+tail -n10 /home/hstrknpp/logs/2020-oster-squash-event.log
+echo "[DEPLOY] "
+
+echo "[DEPLOY] end"
