@@ -1,3 +1,9 @@
+# OS specifics
+*.swp
+*.swo
+.DS_Store
+
+
 .idea/
 frontend/node_modules/
 node-debug.log
@@ -5,17 +11,14 @@ npm-debug.log
 **/__pycache__
 venv/
 frontend/build/
-
-
-# OS specifics
-*.swp
-*.swo
-.DS_Store
-
-
 osteranmeldung.bak/
 db.sqlite3
 test.py
+
+
+# not sure whether they'd be useful in VCS - and they are so big!
+header-images/*
+mockups-demos/*
 
 
 # Deployment
