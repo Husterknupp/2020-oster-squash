@@ -19,6 +19,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 CONFIG = yaml.load(open('config.yaml'), Loader=yaml.FullLoader)
 
+SILENCED_SYSTEM_CHECKS = [
+    # nginx does that for me
+    # why necessary? https://docs.djangoproject.com/en/3.0/ref/middleware/#http-strict-transport-security
+    "security.W004",
+    "security.W008",  # nginx does that for me
+    "security.W022",  # nginx does that for me
+]
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
@@ -31,8 +39,10 @@ DEBUG = CONFIG['DEBUG']
 # CSRF attacks
 ALLOWED_HOSTS = CONFIG['ALLOWED_HOSTS']
 
-# https://docs.djangoproject.com/en/3.0/ref/middleware/#http-strict-transport-security
-SECURE_HSTS_SECONDS = CONFIG['SECURE_HSTS_SECONDS']
+# avoid hijacked admin sessions (https://docs.djangoproject.com/en/3.0/ref/settings/)
+# need it configurable b/c 'always on' would complicate development
+SESSION_COOKIE_SECURE = CONFIG['SESSION_COOKIE_SECURE']
+CSRF_COOKIE_SECURE = CONFIG['CSRF_COOKIE_SECURE']
 
 # Application definition
 
