@@ -23,6 +23,7 @@
 * [ ] deploy.sh: try to 'kill -9' only when there are processes running
 * [ ] gh-pages: pipeline that deploys frontend on every commit (see maahdh)
 * [ ] repair broken css in /admin django pages (broke it with `DEBUG=False` setting)
+* [ ] Impressum: Tech Stack (kudos to uber.space + GitHub + header image)
 
 # Done
 * [x] proper Footer/disclaimer (react-router)
