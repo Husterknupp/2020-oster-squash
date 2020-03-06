@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/2020-oster-squash/static/css/main.d1b05096.chunk.css",
-    "main.js": "/2020-oster-squash/static/js/main.98491d3b.chunk.js",
-    "main.js.map": "/2020-oster-squash/static/js/main.98491d3b.chunk.js.map",
+    "main.css": "/2020-oster-squash/static/css/main.553f85bc.chunk.css",
+    "main.js": "/2020-oster-squash/static/js/main.737ea85a.chunk.js",
+    "main.js.map": "/2020-oster-squash/static/js/main.737ea85a.chunk.js.map",
     "runtime-main.js": "/2020-oster-squash/static/js/runtime-main.74a09bdf.js",
     "runtime-main.js.map": "/2020-oster-squash/static/js/runtime-main.74a09bdf.js.map",
     "static/js/2.74d6e1ce.chunk.js": "/2020-oster-squash/static/js/2.74d6e1ce.chunk.js",
     "static/js/2.74d6e1ce.chunk.js.map": "/2020-oster-squash/static/js/2.74d6e1ce.chunk.js.map",
     "index.html": "/2020-oster-squash/index.html",
-    "precache-manifest.c50e2e759f81dce9d7434601b85314b8.js": "/2020-oster-squash/precache-manifest.c50e2e759f81dce9d7434601b85314b8.js",
+    "precache-manifest.716f2cce99692d8eacb12b8b10e50ab5.js": "/2020-oster-squash/precache-manifest.716f2cce99692d8eacb12b8b10e50ab5.js",
     "service-worker.js": "/2020-oster-squash/service-worker.js",
-    "static/css/main.d1b05096.chunk.css.map": "/2020-oster-squash/static/css/main.d1b05096.chunk.css.map",
+    "static/css/main.553f85bc.chunk.css.map": "/2020-oster-squash/static/css/main.553f85bc.chunk.css.map",
     "static/js/2.74d6e1ce.chunk.js.LICENSE": "/2020-oster-squash/static/js/2.74d6e1ce.chunk.js.LICENSE",
     "static/media/bruno-van-der-kraan-v2HgNzRDfII-unsplash-cropped.png": "/2020-oster-squash/static/media/bruno-van-der-kraan-v2HgNzRDfII-unsplash-cropped.e1b49235.png"
   },
   "entrypoints": [
     "static/js/runtime-main.74a09bdf.js",
     "static/js/2.74d6e1ce.chunk.js",
-    "static/css/main.d1b05096.chunk.css",
-    "static/js/main.98491d3b.chunk.js"
+    "static/css/main.553f85bc.chunk.css",
+    "static/js/main.737ea85a.chunk.js"
   ]
 }

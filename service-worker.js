@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/2020-oster-squash/precache-manifest.c50e2e759f81dce9d7434601b85314b8.js"
+  "/2020-oster-squash/precache-manifest.716f2cce99692d8eacb12b8b10e50ab5.js"
 );
 
 self.addEventListener('message', (event) => {
