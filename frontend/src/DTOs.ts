@@ -10,7 +10,6 @@ export type Registration = {
   emailAddress: string;
   timeFrameBegin: string;
   dateOfRegistration: string;
-  adultsCount: number;
-  childCount: number;
+  quantity: number;
   state: string;
 };

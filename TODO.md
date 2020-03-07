@@ -4,12 +4,11 @@ Prioritized task list + backlog
 
 ## Prio
 
-* [ ] kein U12
 * [ ] Datenschutz schreiben
 * [ ] url "verlinken" (HTTPS + incl. CORS)
 * [ ] popup failure case: please write email to adlknwld
 * [ ] a11y? Tab indices?
-* [ ] Schrift einarbeiten
+* [ ] Schrift einarbeiten (https://fonts.google.com/specimen/Open+Sans+Condensed?preview.text=Penultimate&preview.text_type=custom&selection.family=Abel|Open+Sans+Condensed:wght@700|Wire+One&sidebar.open&query=abe)
 
 ## Backlog
 
@@ -43,3 +42,4 @@ Prioritized task list + backlog
 * [x] is timezone a problem? (GIVEN I am in CET WHEN I register for 'Monday, 15:00' THEN I expect the db `timeFrameBegin` to be 'Monday, 15:00', not 'Monday, 14:00')
 * [x] Preis einarbeiten
 * [x] Titel - Text kürzen/einarbeiten
+* [x] kein U12

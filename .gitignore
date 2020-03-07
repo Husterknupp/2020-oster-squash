@@ -17,8 +17,9 @@ test.py
 
 
 # not sure whether they'd be useful in VCS - and they are so big!
-header-images/*
-mockups-demos/*
+header-images/
+mockups-demos/
+fonts/
 
 
 # Deployment

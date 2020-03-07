@@ -75,7 +75,6 @@ const Calendar: React.FC = () => {
             }
         };
         document.addEventListener('keydown', escFunction, false);
-
         return () => {
             document.removeEventListener('keydown', escFunction, false);
         };
@@ -89,13 +88,12 @@ const Calendar: React.FC = () => {
         <div key={eventDate.day}>
             {hours.map(hour => {
                 const eventTimestamp = `${eventDate.day}T${hour}:00:00Z`;
-                let available = 8;
-                registrations
+                const available = registrations
                     .filter(r => r.timeFrameBegin === eventTimestamp)
-                    .map(({ childCount, adultsCount }) => childCount + adultsCount)
-                    .forEach(seatsTaken => {
-                        available = Math.max(0, available - seatsTaken);
-                    });
+                    .map(({ quantity }) => quantity)
+                    .reduce((prev, current) => {
+                        return Math.max(0, prev - current);
+                    }, 8);
                 const isOpen = openRegistration === eventTimestamp;
                 return (
                     <div className={styles.popupAnchor} key={eventTimestamp}>
@@ -300,25 +298,20 @@ function RegistrationPopup({
     hour,
     onClose,
 }: RegistrationPopupProps): ReactElement {
-    const [adultsCount, setAdultsCount] = useState<number | null>(null);
-    const [childCount, setChildCount] = useState<number | null>(null);
+    const [quantity, setQuantity] = useState<number | null>(null);
     const [emailAddress, setEmailAddress] = useState<string>('');
     const asDate = DateTime.fromISO(date).setLocale('de');
     const [submitState, setSubmitState] = useState<
         'READY_TO_SUBMIT' | 'WAITING_FOR_RESPONSE' | 'SUCCESS_RESPONSE'
     >('READY_TO_SUBMIT');
 
-    const sum = (childCount || 0) + (adultsCount || 0);
-    const adultsCountInvalid =
-        !!adultsCount && (adultsCount > availableSlots || sum > availableSlots);
-    const childCountInvalid = !!childCount && (childCount > availableSlots || sum > availableSlots);
+    const quantityInvalid = !!quantity && quantity > availableSlots;
 
     const onSubmit = (event: FormEvent) => {
         event.preventDefault();
         const payload: Registration = {
             timeFrameBegin: eventTimestamp,
-            adultsCount: adultsCount || 0,
-            childCount: childCount || 0,
+            quantity: quantity || 0,
             emailAddress,
         } as Registration;
         setSubmitState('WAITING_FOR_RESPONSE');
@@ -335,7 +328,7 @@ function RegistrationPopup({
     switch (submitState) {
         case 'READY_TO_SUBMIT': {
             submitButton = (
-                <button type={'submit'} disabled={adultsCountInvalid || childCountInvalid}>
+                <button type={'submit'} disabled={quantityInvalid}>
                     ANMELDEN
                 </button>
             );
@@ -379,42 +372,26 @@ function RegistrationPopup({
             <div
                 className={classes(
                     popupStyles.availableSlots,
-                    adultsCountInvalid || childCountInvalid ? popupStyles.redBorder : ''
+                    quantityInvalid ? popupStyles.redBorder : ''
                 )}
             >
-                {availableSlots} Plätze sind noch frei
+                {availableSlots}
+                {availableSlots === 1 ? ' Platz ist' : ' Plätze sind'} noch frei
             </div>
             <div className={popupStyles.peopleCount}>
                 <input
                     onChange={event => {
                         const number = parseInt(event.target.value);
-                        setAdultsCount(isNaN(number) ? 0 : number);
+                        setQuantity(isNaN(number) ? 0 : number);
                     }}
-                    value={adultsCount !== null ? adultsCount : ''}
+                    value={quantity !== null ? quantity : ''}
                     autoFocus={true}
                     className={classes(
                         popupStyles.numberInput,
-                        adultsCountInvalid ? popupStyles.redBorder : ''
+                        quantityInvalid ? popupStyles.redBorder : ''
                     )}
                 />
                 <small>Personen (12+ Jahre alt)</small>
-            </div>
-            <div className={popupStyles.peopleCount}>
-                <input
-                    onChange={event => {
-                        const number = parseInt(event.target.value);
-                        setChildCount(isNaN(number) ? 0 : number);
-                    }}
-                    value={childCount !== null ? childCount : ''}
-                    className={classes(
-                        popupStyles.numberInput,
-                        childCountInvalid ? popupStyles.redBorder : ''
-                    )}
-                />
-                <small>
-                    Plätze zusätzlich für Kinder unter 12 (wir wollen das wissen, damit es ggf.
-                    nicht "zu authentisch" wird)
-                </small>
             </div>
             <div className={popupStyles.emailInput}>
                 <input

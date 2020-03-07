@@ -6,8 +6,7 @@ class Registration(models.Model):
     emailAddress = models.TextField()
     timeFrameBegin = models.DateTimeField()
     dateOfRegistration = models.DateTimeField(auto_now=True)
-    adultsCount = models.IntegerField()
-    childCount = models.IntegerField()
+    quantity = models.IntegerField()
     state = models.CharField(max_length=120)
 
     def _str_(self):
