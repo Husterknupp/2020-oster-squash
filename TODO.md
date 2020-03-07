@@ -4,11 +4,8 @@ Prioritized task list + backlog
 
 ## Prio
 
-* [ ] is timezone a problem? (GIVEN I am in CET WHEN I register for 'Monday, 15:00' THEN I expect the db `timeFrameBegin` to be 'Monday, 15:00', not 'Monday, 14:00')
 * [ ] kein U12
 * [ ] Datenschutz schreiben
-* [ ] Preis einarbeiten
-* [ ] Titel - Text kürzen/einarbeiten
 * [ ] url "verlinken" (HTTPS + incl. CORS)
 * [ ] popup failure case: please write email to adlknwld
 * [ ] a11y? Tab indices?
@@ -29,6 +26,7 @@ Prioritized task list + backlog
 * [ ] repair broken css in /admin django pages (broke it with `DEBUG=False` setting)
 * [ ] Impressum: Tech Stack (kudos to uber.space + GitHub + header image)
 * [ ] daily overview over (new) registrations (people per eventDate + registrations for date~now())
+* [ ] Flyer-info is more than Header shows - make complete info available somewhere
 
 ## Done
 
@@ -42,3 +40,6 @@ Prioritized task list + backlog
 * [x] django admin user
 * [x] datenbank-Abfrage (für Email-Adressen)
 * [x] get email addresses not saved anymore?
+* [x] is timezone a problem? (GIVEN I am in CET WHEN I register for 'Monday, 15:00' THEN I expect the db `timeFrameBegin` to be 'Monday, 15:00', not 'Monday, 14:00')
+* [x] Preis einarbeiten
+* [x] Titel - Text kürzen/einarbeiten
