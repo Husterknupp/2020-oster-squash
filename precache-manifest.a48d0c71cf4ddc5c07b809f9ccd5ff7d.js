@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "3017bb0124519ed3af74c6f90a0fc8e1",
+    "revision": "53f3442c4dc46855bd1cdbba3816b55b",
     "url": "/2020-oster-squash/index.html"
   },
   {
-    "revision": "3408e29f3be5a4711bb7",
+    "revision": "37f02c1e31f974fd300c",
     "url": "/2020-oster-squash/static/css/main.553f85bc.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/2020-oster-squash/static/js/2.74d6e1ce.chunk.js.LICENSE"
   },
   {
-    "revision": "3408e29f3be5a4711bb7",
-    "url": "/2020-oster-squash/static/js/main.737ea85a.chunk.js"
+    "revision": "37f02c1e31f974fd300c",
+    "url": "/2020-oster-squash/static/js/main.631291eb.chunk.js"
   },
   {
     "revision": "bf6600439e25405de63a",
