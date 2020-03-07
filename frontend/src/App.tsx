@@ -7,6 +7,9 @@ import Calendar from './Calendar';
 import headerImage from './assets/bruno-van-der-kraan-v2HgNzRDfII-unsplash-cropped.png';
 import { Impressum } from './Impressum';
 
+// export const HOST = 'http://localhost:8000';
+export const HOST = 'https://hstrknpp.uber.space';
+
 const styles = stylesheet({
     fullHeight: { minHeight: '100vh' },
     grayishBackground: { background: '#f9fafb' },
