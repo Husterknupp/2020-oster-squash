@@ -86,7 +86,7 @@ const Calendar: React.FC = () => {
             {hours.map(hour => {
                 const eventTimestamp = `${eventDate.day}T${hour}:00:00Z`;
                 const available = registrations
-                    .filter(r => r.timeFrameBegin === eventTimestamp)
+                    .filter(r => r.timeFrameBegin === eventTimestamp && r.state !== 'DELETED')
                     .map(({ quantity }) => quantity)
                     .reduce((prev, current) => {
                         return Math.max(0, prev - current);

@@ -92,7 +92,7 @@ const Artwork: React.FC = () => {
                     Jerusalem vor 2000 Jahren - tauchen Sie ein mit uns in das Leben und den Alltag zur Zeit um Jesu Tod und Auferstehung.
                 </div>
                 <div className={styles.descriptionDate}>07.04.2020 – 11.04.2020</div>
-                <div className={styles.descriptionDate}>€ 5 p.P. | Dauer: 90 min | ab 12 Jahren</div>
+                <div className={styles.descriptionDate}>€ 5 p.P. | Dauer: ca. 90 min | ab 12 Jahren</div>
             </div>
         </div>
     );
