@@ -29,7 +29,7 @@ const styles = stylesheet({
         borderBottom: '1px solid rgba(206, 175, 142, 0.41)',
     },
     description: {
-        margin: '90px',
+        margin: '70px 0 0 90px',
         color: 'white',
         maxWidth: '310px',
         filter: 'drop-shadow(0px 0px 3px rgba(0, 0, 0, 0.28))',
@@ -89,10 +89,23 @@ const Artwork: React.FC = () => {
                     </Link>
                 </h1>
                 <div>
-                    Jerusalem vor 2000 Jahren - tauchen Sie ein mit uns in das Leben und den Alltag zur Zeit um Jesu Tod und Auferstehung.
+                    Jerusalem vor 2000 Jahren - tauchen Sie ein mit uns in das Leben und den Alltag
+                    zur Zeit um Jesu Tod und Auferstehung.
                 </div>
-                <div className={styles.descriptionDate}>07.04.2020 – 11.04.2020</div>
-                <div className={styles.descriptionDate}>€ 5 p.P. | Dauer: ca. 90 min | ab 12 Jahren</div>
+                <div className={styles.descriptionDate}>
+                    07.04 – 11.04.2020 |{' '}
+                    <a
+                        href={'https://goo.gl/maps/UYABGJvm6A2YCKXH9'}
+                        target={'_blank'}
+                        title={'Glauchaer Str. 77 - Google Maps'}
+                        className={styles.subtleLink}
+                    >
+                        St. Georgen-Kirche
+                    </a>
+                </div>
+                <div className={styles.descriptionDate}>
+                    € 5 p.P. | Dauer: ca. 90 min | ab 12 Jahren
+                </div>
             </div>
         </div>
     );

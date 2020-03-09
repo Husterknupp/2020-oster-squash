@@ -6,12 +6,10 @@ Prioritized task list + backlog
 
 * [ ] Datenschutz schreiben
 * [ ] url "verlinken" (HTTPS + incl. CORS)
-* [ ] favicon
 * [ ] qr code an Miriam
 * [ ] Schrift einarbeiten (https://fonts.google.com/specimen/Open+Sans+Condensed?preview.text=Penultimate&preview.text_type=custom&selection.family=Abel|Open+Sans+Condensed:wght@700|Wire+One&sidebar.open&query=abe)
 * [ ] a11y? Tab indices?
-* [ ] mobile-freundlich
-* [ ] Impressum: Tech Stack (kudos to uber.space + GitHub + header image)
+* [ ] mobile-freundlich (https://github.com/faisalman/ua-parser-js)
 * [ ] Flyer-info is more than Header shows - make complete info available somewhere
 
 ## Backlog
@@ -45,3 +43,5 @@ Prioritized task list + backlog
 * [x] Titel - Text kürzen/einarbeiten
 * [x] kein U12
 * [x] registration state: show only "WAITING_FOR_SANITY_CHECK"|"CHECKED" - not "DELETED"
+* [x] favicon
+* [x] Impressum: Tech Stack (kudos to uber.space + GitHub + header image)
