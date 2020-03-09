@@ -4,7 +4,6 @@ Prioritized task list + backlog
 
 ## Prio
 
-* [ ] Datenschutz schreiben
 * [ ] url "verlinken" (HTTPS + incl. CORS)
 * [ ] qr code an Miriam
 * [ ] Schrift einarbeiten (https://fonts.google.com/specimen/Open+Sans+Condensed?preview.text=Penultimate&preview.text_type=custom&selection.family=Abel|Open+Sans+Condensed:wght@700|Wire+One&sidebar.open&query=abe)
@@ -25,6 +24,8 @@ Prioritized task list + backlog
 * [ ] repair broken css in /admin django pages (broke it with `DEBUG=False` setting)
 * [ ] daily overview over (new) registrations (people per eventDate + registrations for date~now())
 * [ ] model-translator: start off from json/xml and create DTOs/django model/views/admin fields
+* [ ] manifest.json - kill it?
+* [ ] Toni: Bitte keine Feedback-Emails oder so mithilfe der Registrierungs-Email
 
 ## Done
 
@@ -45,3 +46,4 @@ Prioritized task list + backlog
 * [x] registration state: show only "WAITING_FOR_SANITY_CHECK"|"CHECKED" - not "DELETED"
 * [x] favicon
 * [x] Impressum: Tech Stack (kudos to uber.space + GitHub + header image)
+* [x] Datenschutz schreiben

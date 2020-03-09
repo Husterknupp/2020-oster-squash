@@ -5,7 +5,8 @@ import './App.css';
 import { classes, stylesheet } from 'typestyle';
 import Calendar from './Calendar';
 import headerImage from './assets/bruno-van-der-kraan-v2HgNzRDfII-unsplash-cropped.png';
-import { Impressum } from './Impressum';
+import { Datenschutz, Impressum } from './Impressum';
+import { SUBTLE_LINK } from './constants';
 
 // export const HOST = 'http://localhost:8000';
 export const HOST = 'https://hstrknpp.uber.space';
@@ -50,15 +51,6 @@ const styles = stylesheet({
             },
         },
     },
-    subtleLink: {
-        color: 'inherit',
-        textDecoration: 'inherit',
-        $nest: {
-            '&:hover': {
-                textDecoration: 'underline',
-            },
-        },
-    },
 });
 
 const App: React.FC = () => {
@@ -84,7 +76,7 @@ const Artwork: React.FC = () => {
         <div className={styles.artwork}>
             <div className={styles.description}>
                 <h1>
-                    <Link to={'/'} className={styles.subtleLink}>
+                    <Link to={'/'} className={SUBTLE_LINK}>
                         Zurück in die Zukunft: Ostern ERlebt
                     </Link>
                 </h1>
@@ -93,12 +85,12 @@ const Artwork: React.FC = () => {
                     zur Zeit um Jesu Tod und Auferstehung.
                 </div>
                 <div className={styles.descriptionDate}>
-                    07.04 – 11.04.2020 |{' '}
+                    7.04. – 11.04.2020 |{' '}
                     <a
                         href={'https://goo.gl/maps/UYABGJvm6A2YCKXH9'}
                         target={'_blank'}
                         title={'Glauchaer Str. 77 - Google Maps'}
-                        className={styles.subtleLink}
+                        className={SUBTLE_LINK}
                     >
                         St. Georgen-Kirche
                     </a>
@@ -115,7 +107,7 @@ const Content: React.FC = () => {
     return (
         <Switch>
             <Route path="/datenschutz">
-                <Impressum />
+                <Datenschutz />
             </Route>
             <Route path="/impressum">
                 <Impressum />
@@ -131,12 +123,12 @@ const Footer: React.FC = () => {
     return (
         <div className={styles.footer}>
             <div>
-                <Link to={'/impressum'} className={styles.subtleLink}>
+                <Link to={'/impressum'} className={SUBTLE_LINK}>
                     Impressum
                 </Link>
             </div>
             <div>
-                <Link to={'/datenschutz'} className={styles.subtleLink}>
+                <Link to={'/datenschutz'} className={SUBTLE_LINK}>
                     Datenschutz
                 </Link>
             </div>
