@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "a45f64209e1f83bb2e4585dc87cfed5a",
+    "revision": "d0bb7a4a97d76ef32425758b4b4c1277",
     "url": "/2020-oster-squash/index.html"
   },
   {
-    "revision": "181b98f69d9433c06d50",
+    "revision": "c9f721a92935ec03fc02",
     "url": "/2020-oster-squash/static/css/main.553f85bc.chunk.css"
   },
   {
-    "revision": "3f70e12aac86507b6747",
-    "url": "/2020-oster-squash/static/js/2.74d6e1ce.chunk.js"
+    "revision": "137991dea9c96bb8a6aa",
+    "url": "/2020-oster-squash/static/js/2.ca7c10d1.chunk.js"
   },
   {
     "revision": "78ddf5a465591a03b9601ba2ddd63415",
-    "url": "/2020-oster-squash/static/js/2.74d6e1ce.chunk.js.LICENSE"
+    "url": "/2020-oster-squash/static/js/2.ca7c10d1.chunk.js.LICENSE"
   },
   {
-    "revision": "181b98f69d9433c06d50",
-    "url": "/2020-oster-squash/static/js/main.b82b74e6.chunk.js"
+    "revision": "c9f721a92935ec03fc02",
+    "url": "/2020-oster-squash/static/js/main.6879039d.chunk.js"
   },
   {
     "revision": "bf6600439e25405de63a",
