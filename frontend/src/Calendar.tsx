@@ -24,7 +24,6 @@ const styles = stylesheet({
         borderRadius: '4px',
         padding: '1em',
         boxShadow: '1px 1px 1px rgba(0, 0, 0, 0.05)',
-        minHeight: '50px',
         background: 'white',
     },
     eventHappening: {
@@ -32,6 +31,7 @@ const styles = stylesheet({
     },
     noEvent: {
         color: '#777676',
+        minHeight: '54px',
     },
     eventImportantText: { fontWeight: 'bold' },
     clickable: {
