@@ -34,7 +34,7 @@ export function Impressum(): ReactElement {
                 Haben Sie Mut, sich auf etwas Außergewöhnliches einzulassen!
             </p>
             <p>
-                Bitte planen Sie mindestens eine Stunde für die Rundreise ein. Anschließend gibt es
+                Bitte planen Sie mindestens 90 Minuten für die Rundreise ein. Anschließend gibt es
                 noch offene Angebote zum Verweilen.
                 <br />
                 Sie können sich als Einzelperson oder auch als Gruppe (max. 8 Personen) anmelden.

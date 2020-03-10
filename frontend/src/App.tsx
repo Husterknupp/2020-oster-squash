@@ -90,10 +90,10 @@ const Artwork: React.FC = () => {
                     <a
                         href={'https://goo.gl/maps/UYABGJvm6A2YCKXH9'}
                         target={'_blank'}
-                        title={'Glauchaer Str. 77 - Google Maps'}
+                        title={'06110 Halle Saale - Google Maps'}
                         className={SUBTLE_LINK}
                     >
-                        St. Georgen-Kirche
+                        Glauchaer Str. 77
                     </a>
                 </div>
                 <div className={styles.descriptionDate}>
