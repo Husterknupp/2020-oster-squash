@@ -24,11 +24,16 @@ const styles = stylesheet({
         borderRadius: '4px',
         padding: '1em',
         boxShadow: '1px 1px 1px rgba(0, 0, 0, 0.05)',
-        minHeight: '38px',
+        minHeight: '50px',
         background: 'white',
     },
+    eventHappening: {
+        fontSize: 'large',
+    },
+    noEvent: {
+        color: '#777676',
+    },
     eventImportantText: { fontWeight: 'bold' },
-    italic: { fontStyle: 'italic', color: '#777676' },
     clickable: {
         cursor: 'pointer',
         $nest: {
@@ -162,18 +167,21 @@ type EventProps = {
 function Event({ isHappening, date, hour, availableSlots, onClick }: EventProps): ReactElement {
     if (!isHappening) {
         return (
-            <div className={classes(styles.eventDisplay, styles.italic)}>
-                {hour} Uhr findet keine Veranstaltung statt
+            <div className={classes(styles.eventDisplay, styles.noEvent)}>
+                {hour} Uhr keine Veranstaltung
             </div>
         );
     } else if (availableSlots === 0) {
         return (
-            <div className={classes(styles.eventDisplay, styles.italic)}>alle Plätze belegt</div>
+            <div className={classes(styles.eventDisplay, styles.noEvent)}>alle Plätze belegt</div>
         );
     }
 
     return (
-        <div className={classes(styles.eventDisplay, styles.clickable)} onClick={onClick}>
+        <div
+            className={classes(styles.eventDisplay, styles.eventHappening, styles.clickable)}
+            onClick={onClick}
+        >
             <small>{availableSlots} Plätze frei</small>
             <div className={styles.eventImportantText}>{`${dayOfTheWeek(date)} ${hour}:00`}</div>
         </div>

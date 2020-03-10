@@ -29,18 +29,15 @@ export function Impressum(): ReactElement {
                 Menschenleben berührt und verändert.
             </p>
             <p>
-                <div>Sind Sie neugierig geworden?</div>
-                <div>Haben Sie Mut, sich auf etwas Außergewöhnliches einzulassen!</div>
+                Sind Sie neugierig geworden?
+                <br />
+                Haben Sie Mut, sich auf etwas Außergewöhnliches einzulassen!
             </p>
             <p>
-                <div>
-                    Bitte planen Sie mindestens eine Stunde für die Rundreise ein. Anschließend gibt
-                    es noch offene Angebote zum Verweilen.
-                </div>
-                <div>
-                    Sie können sich als Einzelperson oder auch als Gruppe (max. 8 Personen)
-                    anmelden.
-                </div>
+                Bitte planen Sie mindestens eine Stunde für die Rundreise ein. Anschließend gibt es
+                noch offene Angebote zum Verweilen.
+                <br />
+                Sie können sich als Einzelperson oder auch als Gruppe (max. 8 Personen) anmelden.
             </p>
             <p>
                 Hinweis: Um Ihre Zeit in Jerusalem so lückenlos und stressfrei wie möglich erleben
@@ -51,8 +48,10 @@ export function Impressum(): ReactElement {
                 Die St. Georgen-Kirche gehört zur{' '}
                 <span className={styles.bold}>Evangeliumsgemeinde Halle e. V. </span>(
                 <a href={'https://evangeliumsgemeinde.de'}>evangeliumsgemeinde.de</a>):
-                <div>Glauchaer Str. 77</div>
-                <div>06110 Halle/S.</div>
+                <br />
+                Glauchaer Str. 77
+                <br />
+                06110 Halle/S.
             </p>
             <p>
                 Veranstalter ist der <span className={styles.bold}>Gemeinsam für Halle e. V. </span>
@@ -79,7 +78,7 @@ export function Impressum(): ReactElement {
             </p>
             <h3 className={styles.bold}>Das krasse Bild</h3>
             <p>
-                Im Titel hat uns frei zur Verfügung gestellt: Bruno von der Kraan (
+                .. im Titel hat uns frei zur Verfügung gestellt: Bruno von der Kraan (
                 <a href={'https://unsplash.com/photos/v2HgNzRDfII'} target={'_blank'}>
                     Unsplash.com
                 </a>
@@ -101,51 +100,45 @@ export function Datenschutz(): ReactElement {
                 Daten zugänglich sein sollen.
             </p>
             <p>
-                <div>
-                    Verhindert werden soll, dass wir als Betreiber Wissen über den Nutzer unserer
-                    Website erlangen mit dem er/sie z.B. bedrängt, manipuliert oder gar ausgegrenzt
-                    werden könnte.
-                </div>
-                <div>
-                    Ein paar Informationen brauchen wir allerdings, sonst funktioniert die Anmeldung
-                    zum Event nicht.
-                </div>
+                Verhindert werden soll, dass wir als Betreiber Wissen über den Nutzer unserer
+                Website erlangen mit dem er/sie z.B. bedrängt, manipuliert oder gar ausgegrenzt
+                werden könnte. <br />
+                Ein paar Informationen brauchen wir allerdings, sonst funktioniert die Anmeldung zum
+                Event nicht.
             </p>
             <h3>Inhalt</h3>
-            <p>
-                <ol>
-                    <li>
-                        <a href={'#Browserinformationen'} className={SUBTLE_LINK}>
-                            Browserinformationen
-                        </a>
-                    </li>
-                    <li>
-                        <a href={'#Speichern-der-Emailadresse'} className={SUBTLE_LINK}>
-                            Speichern der Emailadresse
-                        </a>
-                    </li>
-                    <li>
-                        <a href={'#Cookies'} className={SUBTLE_LINK}>
-                            Cookies
-                        </a>
-                    </li>
-                    <li>
-                        <a href={'#Webtracking'} className={SUBTLE_LINK}>
-                            Webtracking
-                        </a>
-                    </li>
-                    <li>
-                        <a href={'#Rechte-der-betroffenen-Person'} className={SUBTLE_LINK}>
-                            Rechte der betroffenen Person
-                        </a>
-                    </li>
-                    <li>
-                        <a href={'#Datenschutzbeauftragter'} className={SUBTLE_LINK}>
-                            Datenschutzbeauftragter
-                        </a>
-                    </li>
-                </ol>
-            </p>
+            <ol>
+                <li>
+                    <a href={'#Browserinformationen'} className={SUBTLE_LINK}>
+                        Browserinformationen
+                    </a>
+                </li>
+                <li>
+                    <a href={'#Speichern-der-Emailadresse'} className={SUBTLE_LINK}>
+                        Speichern der Emailadresse
+                    </a>
+                </li>
+                <li>
+                    <a href={'#Cookies'} className={SUBTLE_LINK}>
+                        Cookies
+                    </a>
+                </li>
+                <li>
+                    <a href={'#Webtracking'} className={SUBTLE_LINK}>
+                        Webtracking
+                    </a>
+                </li>
+                <li>
+                    <a href={'#Rechte-der-betroffenen-Person'} className={SUBTLE_LINK}>
+                        Rechte der betroffenen Person
+                    </a>
+                </li>
+                <li>
+                    <a href={'#Datenschutzbeauftragter'} className={SUBTLE_LINK}>
+                        Datenschutzbeauftragter
+                    </a>
+                </li>
+            </ol>
 
             <h3 id={'Browserinformationen'}>Browserinformationen</h3>
             <p>
@@ -160,17 +153,15 @@ export function Datenschutz(): ReactElement {
                 ) erheben und speichern automatisch Informationen in so genannten Server-Log Files,
                 die Ihr Browser automatisch an sie übermittelt.
             </p>
-            <p>
-                Dies sind:
-                <ul>
-                    <li>Browsertyp und -version</li>
-                    <li>verwendetes Betriebssystem</li>
-                    <li>Website, von der Sie uns aus besuchen (Referrer URL)</li>
-                    <li>Webseite, die Sie besuchen</li>
-                    <li>IP-Adresse (anonymisiert)</li>
-                    <li>Datum und Uhrzeit Ihres Zugriffs</li>
-                </ul>
-            </p>
+            <p>Dies sind:</p>
+            <ul>
+                <li>Browsertyp und -version</li>
+                <li>verwendetes Betriebssystem</li>
+                <li>Website, von der Sie uns aus besuchen (Referrer URL)</li>
+                <li>Webseite, die Sie besuchen</li>
+                <li>IP-Adresse (anonymisiert)</li>
+                <li>Datum und Uhrzeit Ihres Zugriffs</li>
+            </ul>
             <p>
                 Diese Daten sind nicht bestimmten Personen zuordenbar. Eine Zusammenführung dieser
                 Daten mit anderen Datenquellen wird nicht vorgenommen. Sie werden zu statistischen
@@ -204,23 +195,21 @@ export function Datenschutz(): ReactElement {
                     Art. 15ff. DSGVO
                 </a>
                 ) auf:
-                <ul>
-                    <li>Auskunft</li>
-                    <li>Berichtigung</li>
-                    <li>Widerspruch</li>
-                    <li>Löschung</li>
-                    <li>Einschränkung der Verarbeitung</li>
-                    <li>Datenübertragbarkeit</li>
-                </ul>
-                Bitte wenden Sie sich dazu an den Datenschutzbeauftragten.
             </p>
+            <ul>
+                <li>Auskunft</li>
+                <li>Berichtigung</li>
+                <li>Widerspruch</li>
+                <li>Löschung</li>
+                <li>Einschränkung der Verarbeitung</li>
+                <li>Datenübertragbarkeit</li>
+            </ul>
+            <p>Bitte wenden Sie sich dazu an den Datenschutzbeauftragten.</p>
             <h3 id={'Datenschutzbeauftragter'}>Datenschutzbeauftragter</h3>
             <p>
-                <div>Verantwortlicher im Sinne der Datenschutz-Grundverordnung ist:</div>
-                <div>
-                    Gemeinsam für Halle e. V., Henry Marten, Richard-Wagner-Str. 55, 06114 Halle
-                    Saale
-                </div>
+                Verantwortlicher im Sinne der Datenschutz-Grundverordnung ist:
+                <br />
+                Gemeinsam für Halle e. V., Henry Marten, Richard-Wagner-Str. 55, 06114 Halle Saale
             </p>
         </div>
     );

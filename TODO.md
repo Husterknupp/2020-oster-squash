@@ -6,10 +6,11 @@ Prioritized task list + backlog
 
 * [ ] url "verlinken" (HTTPS + incl. CORS)
 * [ ] qr code an Miriam
-* [ ] Schrift einarbeiten (https://fonts.google.com/specimen/Open+Sans+Condensed?preview.text=Penultimate&preview.text_type=custom&selection.family=Abel|Open+Sans+Condensed:wght@700|Wire+One&sidebar.open&query=abe)
 * [ ] a11y? Tab indices?
 * [ ] mobile-freundlich (https://github.com/faisalman/ua-parser-js)
 * [ ] Flyer-info is more than Header shows - make complete info available somewhere
+* [ ] react-router: append to existing path, don't replace everything in path
+* [ ] GitHub: don't route my other GitHub pages sites
 
 ## Backlog
 
@@ -47,3 +48,4 @@ Prioritized task list + backlog
 * [x] favicon
 * [x] Impressum: Tech Stack (kudos to uber.space + GitHub + header image)
 * [x] Datenschutz schreiben
+* [x] Schrift einarbeiten (Open Sans Condensed b/c it has regular+b+i) (https://fonts.google.com/specimen/Open+Sans+Condensed?preview.text=Penultimate&preview.text_type=custom&selection.family=Abel|Open+Sans+Condensed:wght@700|Wire+One&sidebar.open&query=abe)
