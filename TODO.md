@@ -11,6 +11,7 @@ Prioritized task list + backlog
 * [ ] Flyer-info is more than Header shows - make complete info available somewhere
 * [ ] react-router: append to existing path, don't replace everything in path
 * [ ] GitHub: don't route my other GitHub pages sites
+* [ ] Browser/Whatsapp preview
 
 ## Backlog
 
