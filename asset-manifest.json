@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/2020-oster-squash/static/css/main.0083f044.chunk.css",
-    "main.js": "/2020-oster-squash/static/js/main.83bdd298.chunk.js",
-    "main.js.map": "/2020-oster-squash/static/js/main.83bdd298.chunk.js.map",
-    "runtime-main.js": "/2020-oster-squash/static/js/runtime-main.74a09bdf.js",
-    "runtime-main.js.map": "/2020-oster-squash/static/js/runtime-main.74a09bdf.js.map",
-    "static/js/2.ca7c10d1.chunk.js": "/2020-oster-squash/static/js/2.ca7c10d1.chunk.js",
-    "static/js/2.ca7c10d1.chunk.js.map": "/2020-oster-squash/static/js/2.ca7c10d1.chunk.js.map",
-    "index.html": "/2020-oster-squash/index.html",
-    "precache-manifest.3a9a98325406481229f8ad8d5f8f89d4.js": "/2020-oster-squash/precache-manifest.3a9a98325406481229f8ad8d5f8f89d4.js",
-    "service-worker.js": "/2020-oster-squash/service-worker.js",
-    "static/css/main.0083f044.chunk.css.map": "/2020-oster-squash/static/css/main.0083f044.chunk.css.map",
-    "static/js/2.ca7c10d1.chunk.js.LICENSE": "/2020-oster-squash/static/js/2.ca7c10d1.chunk.js.LICENSE",
-    "static/media/bruno-van-der-kraan-v2HgNzRDfII-unsplash-cropped.png": "/2020-oster-squash/static/media/bruno-van-der-kraan-v2HgNzRDfII-unsplash-cropped.e1b49235.png"
+    "main.css": "/static/css/main.0083f044.chunk.css",
+    "main.js": "/static/js/main.b8d00140.chunk.js",
+    "main.js.map": "/static/js/main.b8d00140.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.1c2d59f4.js",
+    "runtime-main.js.map": "/static/js/runtime-main.1c2d59f4.js.map",
+    "static/js/2.ca7c10d1.chunk.js": "/static/js/2.ca7c10d1.chunk.js",
+    "static/js/2.ca7c10d1.chunk.js.map": "/static/js/2.ca7c10d1.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.02be8f41e30f06cc8b8c86a6cbfd5cc5.js": "/precache-manifest.02be8f41e30f06cc8b8c86a6cbfd5cc5.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/main.0083f044.chunk.css.map": "/static/css/main.0083f044.chunk.css.map",
+    "static/js/2.ca7c10d1.chunk.js.LICENSE": "/static/js/2.ca7c10d1.chunk.js.LICENSE",
+    "static/media/bruno-van-der-kraan-v2HgNzRDfII-unsplash-cropped.png": "/static/media/bruno-van-der-kraan-v2HgNzRDfII-unsplash-cropped.e1b49235.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.74a09bdf.js",
+    "static/js/runtime-main.1c2d59f4.js",
     "static/js/2.ca7c10d1.chunk.js",
     "static/css/main.0083f044.chunk.css",
-    "static/js/main.83bdd298.chunk.js"
+    "static/js/main.b8d00140.chunk.js"
   ]
 }
