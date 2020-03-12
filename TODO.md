@@ -8,7 +8,6 @@ Prioritized task list + backlog
 - [ ] lighthouse test
 - [ ] a11y? Tab indices?
 - [ ] mobile-freundlich (https://github.com/faisalman/ua-parser-js | request.META['HTTP_USER_AGENT'] | "Desktop-Seite anfordern" | UA b/c pixel density gets considered: tablet and desktop might have same screen res, but on tablet you go with 2-column, on desktop with 3-column)
-- [ ] Browser/Whatsapp preview
 
 ## Backlog
 
@@ -59,3 +58,4 @@ Prioritized task list + backlog
 - [x] Toni: Bitte keine Feedback-Emails oder so mithilfe der Registrierungs-Email
 - [x] Inhalte finden/Impressum umbenennen mit Toni klären (ggf. verlinken auf https://www.gfhalle.de/-Veranstaltungen--Ostern-ERlebt.php6) -> kein verlinken notwendig
 - [x] Event-Information à la eventim direkt unter Kalender?
+- [x] Browser/Whatsapp preview

@@ -1,9 +1,8 @@
-import { NestedCSSProperties } from 'typestyle/lib/types';
 import { style } from 'typestyle';
 
-export const H1: NestedCSSProperties = {
+export const H1 = style({
     fontSize: '1.7em',
-};
+});
 
 export const SUBTLE_LINK = style({
     color: 'inherit',
@@ -13,4 +12,8 @@ export const SUBTLE_LINK = style({
             textDecoration: 'underline',
         },
     },
+});
+
+export const BOLD = style({
+    fontWeight: 'bold',
 });

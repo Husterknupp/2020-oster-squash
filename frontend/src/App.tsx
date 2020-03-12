@@ -6,7 +6,7 @@ import { classes, stylesheet } from 'typestyle';
 import Calendar from './Calendar';
 import headerImage from './assets/bruno-van-der-kraan-v2HgNzRDfII-unsplash-cropped.png';
 import { Datenschutz, Impressum } from './Impressum';
-import { SUBTLE_LINK } from './constants';
+import { BOLD, H1, SUBTLE_LINK } from './constants';
 
 // export const HOST = 'http://localhost:8000';
 export const HOST = 'https://hstrknpp.uber.space';
@@ -39,6 +39,18 @@ const styles = stylesheet({
     descriptionDate: {
         marginTop: '1em',
     },
+    centralGridBlock: {
+        gridColumnStart: 2,
+        gridColumnEnd: 3,
+    },
+    eventInfo: {
+        maxWidth: '1000px',
+        $nest: {
+            '& > p': {
+                fontSize: '18px',
+            },
+        },
+    },
     footer: {
         gridColumnStart: 1,
         gridColumnEnd: 4,
@@ -47,7 +59,6 @@ const styles = stylesheet({
         display: 'flex',
         $nest: {
             '& > div': {
-                fontSize: 'small',
                 margin: 'auto 1em',
             },
         },
@@ -108,13 +119,45 @@ const Content: React.FC = () => {
     return (
         <Switch>
             <Route path="/datenschutz">
-                <Datenschutz />
+                <Datenschutz className={styles.centralGridBlock} />
             </Route>
             <Route path="/impressum">
-                <Impressum />
+                <Impressum className={styles.centralGridBlock} />
             </Route>
             <Route path="/">
-                <Calendar />
+                <div className={styles.centralGridBlock}>
+                    <Calendar />
+                    <div className={styles.eventInfo}>
+                        <h3 className={classes(H1, BOLD)}>Event-Information</h3>
+                        <p>
+                            Vor 2000 Jahren hat Jesus Christus durch seinen Tod und seine
+                            Auferstehung die Weltgeschichte nachhaltig verändert. Doch wie war das
+                            eigentlich damals? Eine Reise in die Vergangenheit leitet Sie nach
+                            Jerusalem und lässt Sie Ostern mit allen Sinnen erfassen.
+                            <br />
+                            Eine professionelle Reisebegleitung führt Sie Schritt für Schritt durch
+                            die biblischen Ereignisse. Dieser Weg ermöglicht eine lebendige
+                            Erfahrung, die bis heute Menschenleben berührt und verändert.
+                        </p>
+                        <p>
+                            Sind Sie neugierig geworden?
+                            <br />
+                            Haben Sie Mut, sich auf etwas Außergewöhnliches einzulassen!
+                        </p>
+                        <p>
+                            Bitte planen Sie mindestens 90 Minuten für die Rundreise ein.
+                            Anschließend gibt es noch offene Angebote zum Verweilen.
+                            <br />
+                            Sie können sich als Einzelperson oder auch als Gruppe (max. 8 Personen)
+                            anmelden.
+                        </p>
+                        <p>
+                            Hinweis: Um Ihre Zeit in Jerusalem so lückenlos und stressfrei wie
+                            möglich erleben zu können, möchten wir alle Teilnehmenden bitten,
+                            pünktlich zu sein.
+                        </p>
+                    </div>
+                </div>
             </Route>
         </Switch>
     );

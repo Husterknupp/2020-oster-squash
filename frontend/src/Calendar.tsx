@@ -1,21 +1,16 @@
 import React, { ReactElement, useEffect, useState } from 'react';
-import { classes, style, stylesheet } from 'typestyle';
+import { classes, stylesheet } from 'typestyle';
 import { Registration } from './DTOs';
 import axios from 'axios';
 import { DateTime } from 'luxon';
-import { H1 } from './constants';
+import { BOLD, H1 } from './constants';
 import RegistrationPopup from './RegistrationPopup';
 import { HOST } from './App';
 
 const styles = stylesheet({
-    calendar: {
-        gridColumnStart: 2,
-        gridColumnEnd: 3,
-    },
     dayOfWeek: { display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)' },
     eventGrid: { display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)' },
     header: { margin: '1em' },
-    headerDate: { ...H1, fontWeight: 'bold' },
     headerWeekday: { fontSize: '1.2em' },
     eventDisplay: {
         textAlign: 'center',
@@ -33,7 +28,6 @@ const styles = stylesheet({
         color: '#777676',
         minHeight: '54px',
     },
-    eventImportantText: { fontWeight: 'bold' },
     clickable: {
         cursor: 'pointer',
         $nest: {
@@ -45,14 +39,13 @@ const styles = stylesheet({
     popupAnchor: { position: 'relative' },
 });
 
-const eventDates: EventDate[] = [
+const eventDates: { day: string; hours: number[] }[] = [
     { day: '2020-04-07', hours: [14, 15, 16, 17] },
     { day: '2020-04-08', hours: [14, 15, 16, 17] },
     { day: '2020-04-09', hours: [14, 15, 16, 17] },
     { day: '2020-04-10', hours: [16, 17, 18, 19] },
     { day: '2020-04-11', hours: [14, 15, 16, 17] },
 ];
-type EventDate = { day: string; hours: number[] };
 
 const hours = Array.from(new Set(eventDates.flatMap(({ hours }) => hours)));
 
@@ -131,7 +124,7 @@ const Calendar: React.FC = () => {
     ));
 
     return (
-        <div className={styles.calendar}>
+        <div>
             <div className={styles.dayOfWeek}>{dateHeaders}</div>
             <div className={styles.eventGrid}>{eventsPerDay}</div>
         </div>
@@ -147,10 +140,10 @@ function DateHeader({ day }: DateHeaderProps): ReactElement {
     return (
         <div className={styles.header}>
             <div>
-                <span className={styles.headerDate}>
+                <span className={classes(BOLD, H1)}>
                     {asDate.toLocaleString({ month: 'long', day: 'numeric' })}
                 </span>
-                <span className={style(H1)}> {asDate.toLocaleString({ year: 'numeric' })}</span>
+                <span className={H1}> {asDate.toLocaleString({ year: 'numeric' })}</span>
             </div>
             <div className={styles.headerWeekday}>{asDate.toLocaleString({ weekday: 'long' })}</div>
         </div>
@@ -183,7 +176,7 @@ function Event({ isHappening, date, hour, availableSlots, onClick }: EventProps)
             onClick={onClick}
         >
             <small>{availableSlots} Plätze frei</small>
-            <div className={styles.eventImportantText}>{`${dayOfTheWeek(date)} ${hour}:00`}</div>
+            <div className={BOLD}>{`${dayOfTheWeek(date)} ${hour}:00`}</div>
         </div>
     );
 }

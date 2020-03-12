@@ -1,52 +1,18 @@
 import React, { ReactElement } from 'react';
-import { stylesheet } from 'typestyle';
-import { SUBTLE_LINK } from './constants';
+import { BOLD, SUBTLE_LINK } from './constants';
 
-const styles = stylesheet({
-    centralGridBlock: {
-        gridColumnStart: 2,
-        gridColumnEnd: 3,
-    },
-    bold: {
-        fontWeight: 'bold',
-    },
-});
-
-export function Impressum(): ReactElement {
+type ImpressumProps = {
+    className: string;
+};
+export function Impressum({ className }: ImpressumProps): ReactElement {
     return (
-        <div className={styles.centralGridBlock}>
+        <div className={className}>
             <h2>Impressum</h2>
             Wer ist wofür verantwortlich?
-            <h3 className={styles.bold}>Ostern ERlebt</h3>
-            <p>
-                Vor 2000 Jahren hat Jesus Christus durch seinen Tod und seine Auferstehung die
-                Weltgeschichte nachhaltig verändert. Doch wie war das eigentlich damals? Eine Reise
-                in die Vergangenheit leitet Sie nach Jerusalem und lässt Sie Ostern mit allen Sinnen
-                erfassen.
-                <br />
-                Eine professionelle Reisebegleitung führt Sie Schritt für Schritt durch die
-                biblischen Ereignisse. Dieser Weg ermöglicht eine lebendige Erfahrung, die bis heute
-                Menschenleben berührt und verändert.
-            </p>
-            <p>
-                Sind Sie neugierig geworden?
-                <br />
-                Haben Sie Mut, sich auf etwas Außergewöhnliches einzulassen!
-            </p>
-            <p>
-                Bitte planen Sie mindestens 90 Minuten für die Rundreise ein. Anschließend gibt es
-                noch offene Angebote zum Verweilen.
-                <br />
-                Sie können sich als Einzelperson oder auch als Gruppe (max. 8 Personen) anmelden.
-            </p>
-            <p>
-                Hinweis: Um Ihre Zeit in Jerusalem so lückenlos und stressfrei wie möglich erleben
-                zu können, möchten wir alle Teilnehmenden bitten, pünktlich zu sein.
-            </p>
             <h3>Ort & Veranstalter</h3>
             <p>
                 Die St. Georgen-Kirche gehört zur{' '}
-                <span className={styles.bold}>Evangeliumsgemeinde Halle e. V. </span>(
+                <span className={BOLD}>Evangeliumsgemeinde Halle e. V. </span>(
                 <a href={'https://evangeliumsgemeinde.de'}>evangeliumsgemeinde.de</a>):
                 <br />
                 Glauchaer Str. 77
@@ -54,10 +20,10 @@ export function Impressum(): ReactElement {
                 06110 Halle/S.
             </p>
             <p>
-                Veranstalter ist der <span className={styles.bold}>Gemeinsam für Halle e. V. </span>
-                (<a href={'https://gfhalle.de'}>gfHalle.de</a>)
+                Veranstalter ist der <span className={BOLD}>Gemeinsam für Halle e. V. </span>(
+                <a href={'https://gfhalle.de'}>gfHalle.de</a>)
             </p>
-            <h3 className={styles.bold}>Internetauftritt</h3>
+            <h3 className={BOLD}>Internetauftritt</h3>
             <p>Anbieter und verantwortlich für den Inhalt dieser Seite ist</p>
             <p>
                 Antonia Gerdemann
@@ -76,7 +42,7 @@ export function Impressum(): ReactElement {
                     Uberspace.de
                 </a>
             </p>
-            <h3 className={styles.bold}>Das krasse Bild</h3>
+            <h3 className={BOLD}>Das krasse Bild</h3>
             <p>
                 .. im Titel hat uns frei zur Verfügung gestellt: Bruno von der Kraan (
                 <a href={'https://unsplash.com/photos/v2HgNzRDfII'} target={'_blank'}>
@@ -88,9 +54,12 @@ export function Impressum(): ReactElement {
     );
 }
 
-export function Datenschutz(): ReactElement {
+type DatenschutzProps = {
+    className: string;
+};
+export function Datenschutz({ className }: DatenschutzProps): ReactElement {
     return (
-        <div className={styles.centralGridBlock}>
+        <div className={className}>
             <h2>Datenschutz</h2>
             <p>
                 Zweck des Datenschutzes ist, Sie als Einzelnen davor zu schützen, durch
@@ -191,8 +160,12 @@ export function Datenschutz(): ReactElement {
             <p>
                 Bei Fragen zu Ihren personenbezogenen Daten auf unserer Website haben Sie
                 grundsätzlich ein Recht (
-                <a href={'https://dejure.org/gesetze/DSGVO/15.html'} target={'_blank'}>
-                    Art. 15ff. DSGVO
+                <a
+                    href={'https://dejure.org/gesetze/DSGVO/15.html'}
+                    target={'_blank'}
+                    className={SUBTLE_LINK}
+                >
+                    laut Art. 15ff. DSGVO
                 </a>
                 ) auf:
             </p>
