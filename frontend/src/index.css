@@ -8,3 +8,23 @@ body {
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
+
+@font-face {
+    font-family: 'Open Sans Condensed';
+    src: local('Open Sans Condensed'),
+        url('./assets/OpenSansCondensed-Light.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Open Sans Condensed';
+    src: local('Open Sans Condensed Bold'),
+        url('./assets/OpenSansCondensed-Bold.ttf') format('truetype');
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: 'Open Sans Condensed';
+    src: local('Open Sans Condensed Italic'),
+        url('./assets/OpenSansCondensed-LightItalic.ttf') format('truetype');
+    font-style: italic;
+}
