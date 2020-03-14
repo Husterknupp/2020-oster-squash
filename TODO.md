@@ -5,7 +5,6 @@ Prioritized task list + backlog
 ## Prio
 
 - [ ] #traceability: log registration events
-- [ ] lighthouse test
 - [ ] a11y? Tab indices?
 - [ ] mobile-freundlich (https://github.com/faisalman/ua-parser-js | request.META['HTTP_USER_AGENT'] | "Desktop-Seite anfordern" | UA b/c pixel density gets considered: tablet and desktop might have same screen res, but on tablet you go with 2-column, on desktop with 3-column)
 
@@ -26,7 +25,6 @@ Prioritized task list + backlog
 - [ ] GitHub: is it routing my other GitHub pages sites?
 - [ ] webpack to configure backend url
 - [ ] react-router: append to existing path, don't replace everything in path (only relevant when coming already w/ path, eg, GitHub pages url)
-- [ ] apple touch icon? is that being used for whatsapp preview?
 
 ## Done
 
@@ -50,7 +48,7 @@ Prioritized task list + backlog
 - [x] Datenschutz schreiben
 - [x] Schrift einarbeiten (Open Sans Condensed b/c it has regular+b+i) (https://fonts.google.com/specimen/Open+Sans+Condensed?preview.text=Penultimate&preview.text_type=custom&selection.family=Abel|Open+Sans+Condensed:wght@700|Wire+One&sidebar.open&query=abe)
 - [->] weißer Text in Header nicht lesbar vor weißem Licht Hintergrund (-> responsive/mobile)
-- [x] url "verlinken" ostern-erlebt-halle.de (HTTPS + incl. CORS)
+- [x] url "verlinken" ostern-erlebt-halle.de (HTTPS + incl. CORS) -> Learnings siehe Notes
 - [x] qr code an Miriam + www.url.de -> url.de + http(s) ?
 - [x] Impressum: 90 Minuten statt 60
 - [x] Flyer-info is more than Header shows - make complete info available somewhere
@@ -59,3 +57,5 @@ Prioritized task list + backlog
 - [x] Inhalte finden/Impressum umbenennen mit Toni klären (ggf. verlinken auf https://www.gfhalle.de/-Veranstaltungen--Ostern-ERlebt.php6) -> kein verlinken notwendig
 - [x] Event-Information à la eventim direkt unter Kalender?
 - [x] Browser/Whatsapp preview
+- [x] apple touch icon? is that being used for whatsapp preview? -> yes it is
+- [x] lighthouse test -> includ fonts + minimize image size (webp/jpg2000)
