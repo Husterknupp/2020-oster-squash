@@ -143,6 +143,8 @@ function isWebPUsable() {
     });
 }
 
+// check_webp_feature:
+//   'feature' can be one of 'lossy', 'lossless', 'alpha' or 'animation'.
 //   'callback(feature, result)' will be passed back the detection result (in an asynchronous way!)
 function check_webp_feature(feature: 'lossy' | 'lossless' | 'alpha' | 'animation') {
     return new Promise(resolve => {

@@ -59,7 +59,17 @@ const App: React.FC = () => {
                         )}
                     >
                         <ArtworkMobile className={styles.artworkGridBlock} />
-                        <Content />
+                        <Switch>
+                            <Route path="/datenschutz">
+                                <Datenschutz className={styles.centralGridBlock} />
+                            </Route>
+                            <Route path="/impressum">
+                                <Impressum className={styles.centralGridBlock} />
+                            </Route>
+                            <Route path="/">
+                                <MainPage />
+                            </Route>
+                        </Switch>
                         <Footer />
                     </div>
                 )}
@@ -72,7 +82,18 @@ const App: React.FC = () => {
                         )}
                     >
                         <ArtworkDesktop className={styles.artworkGridBlock} />
-                        <Content />
+                        <Switch>
+                            <Route path="/datenschutz">
+                                <Datenschutz className={styles.centralGridBlock} />
+                            </Route>
+                            <Route path="/impressum">
+                                <Impressum className={styles.centralGridBlock} />
+                            </Route>
+                            <Route path="/">
+                                {/*<MainPage />*/}
+                                <div>fällt aus wegen Krankheit</div>
+                            </Route>
+                        </Switch>
                         <Footer />
                     </div>
                 )}
@@ -105,20 +126,20 @@ const DeviceSwitch: React.FC<DeviceSwitchProps> = ({ Desktop, Phone }) => {
     }
 };
 
-const Content: React.FC = () => {
+const MainPage: React.FC = () => {
+    const faelltAusWegenKrank = true;
     return (
-        <Switch>
-            <Route path="/datenschutz">
-                <Datenschutz className={styles.centralGridBlock} />
-            </Route>
-            <Route path="/impressum">
-                <Impressum className={styles.centralGridBlock} />
-            </Route>
-            <Route path="/">
-                <div className={styles.centralGridBlock}>
-                    <Calendar />
-                    <div className={styles.eventInfo}>
-                        <h3 className={classes(H1, BOLD)}>Event-Information</h3>
+        <div className={styles.centralGridBlock}>
+            {faelltAusWegenKrank || <Calendar />}
+            <div className={styles.eventInfo}>
+                <h3 className={classes(H1, BOLD)}>Event-Information</h3>
+                <p>
+                    Es ist leider so, dass aus Schutz der Öffentlichkeit vor dem Corona-Virus alle
+                    öffentlichen Veranstaltungen bis nach Ostern nicht stattfinden können.
+                </p>
+                <p>Von daher wird es dieses Jahr keine Zeitreise geben.</p>
+                {faelltAusWegenKrank || (
+                    <>
                         <p>
                             Vor 2000 Jahren hat Jesus Christus durch seinen Tod und seine
                             Auferstehung die Weltgeschichte nachhaltig verändert. Doch wie war das
@@ -146,10 +167,10 @@ const Content: React.FC = () => {
                             möglich erleben zu können, möchten wir alle Teilnehmenden bitten,
                             pünktlich zu sein.
                         </p>
-                    </div>
-                </div>
-            </Route>
-        </Switch>
+                    </>
+                )}{' '}
+            </div>
+        </div>
     );
 };
 
@@ -169,8 +190,5 @@ const Footer: React.FC = () => {
         </div>
     );
 };
-
-// check_webp_feature:
-//   'feature' can be one of 'lossy', 'lossless', 'alpha' or 'animation'.
 
 export default App;
