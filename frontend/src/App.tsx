@@ -90,8 +90,7 @@ const App: React.FC = () => {
                                 <Impressum className={styles.centralGridBlock} />
                             </Route>
                             <Route path="/">
-                                {/*<MainPage />*/}
-                                <div>fällt aus wegen Krankheit</div>
+                                <MainPage />
                             </Route>
                         </Switch>
                         <Footer />
