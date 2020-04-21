@@ -58,4 +58,4 @@ Prioritized task list + backlog
 - [x] Event-Information à la eventim direkt unter Kalender?
 - [x] Browser/Whatsapp preview
 - [x] apple touch icon? is that being used for whatsapp preview? -> yes it is
-- [x] lighthouse test -> includ fonts + minimize image size (webp/jpg2000)
+- [x] lighthouse test -> includ fonts + minimize image size (webp/jpg2000) - thanks https://ezgif.com/png-to-webp
